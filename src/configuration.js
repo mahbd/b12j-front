@@ -21,19 +21,23 @@ export const wssURL = () => {
 }
 
 export const urls = {
-    contests: '/contests',
-    submissions: '/submissions',
-    standing: '/contests/standing',
-    problems: '/problems',
-    tutorials: '/tutorials',
-    chat: '/chat',
     cf: '/cf',
     cfProblems: 'cf/problems',
     cfStatics: 'cf/statics',
-    users: '/users',
+    chat: '/chat',
+    contests: '/contests',
+    home: '/home',
     login: '/users/login',
-    register: '/users/register',
     logout: '/users/logout',
+    problems: '/problems',
+    profile: '/users/profile',
+    register: '/users/register',
+    restricted: '/restricted',
+    addEditContest: '/restricted/add-edit-contest',
+    standing: '/contests/standing',
+    submissions: '/submissions',
+    tutorials: '/tutorials',
+    users: '/users',
 };
 
 export const navBar = {

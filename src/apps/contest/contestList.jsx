@@ -65,7 +65,7 @@ const ContestList = () => {
           <p className={"mt-4"}/>
           <div className={"card pb-4"}>
             <div className={"card-header h4"}>
-              {contest.title}
+              <Link to={`${urls.contests}/${contest.id}`} className={"white-link"}>{contest.title} </Link>
             </div>
             <div className={"card-body"}>
               <div className="row">

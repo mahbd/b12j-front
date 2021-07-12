@@ -7,8 +7,8 @@ import Standing from "./standing";
 
 const ContestRoute = () => {
   return <Switch>
-    <Route path="/contests/standing/:contestId" component={Standing}/>
-    <Route path="/contests/:contestId" component={Contest}/>
+    <Route path={`${urls.standing}/:contestId`} component={Standing}/>
+    <Route path={`${urls.contests}/:contestId`} component={Contest}/>
     <Route path={urls.contests} component={ContestList}/>
   </Switch>
 };

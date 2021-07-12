@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import ProblemList from "../problem/problemList";
+import {renderProblemList} from "../problem/problemList";
 import Countdown from "react-countdown";
 import TutorialList from "../tutorial/tutorialList";
 import {Link} from "react-router-dom";
@@ -8,8 +8,12 @@ import {SuperContext} from "../../context";
 
 const Contest = ({match}) => {
   const {contestId} = match.params;
-  const {contestActs, userActs} = useContext(SuperContext);
+  const {contestActs, userActs, problemActs} = useContext(SuperContext);
   const contest = contestActs.getById(contestId);
+  let problems = [];
+  if (contestId) {
+    problems = problemActs.contestProblems(contestId);
+  }
 
   const contestStart = new Date((contest && contest.start_time) || Date.now().toLocaleString());
   const contestEnd = new Date((contest && contest.end_time) || Date.now().toLocaleString());
@@ -54,14 +58,13 @@ const Contest = ({match}) => {
         </div>}
 
         <div>
-          <div className="row">
-            <h2>About contest</h2>
-            <div className="col"/>
-          </div>
+          <h2>About contest</h2>
           <div>
             {contest.text && <FormattedHtml text={contest.text}/>}
           </div>
+          <h3>Writers</h3>
           {contest.writers.map((userId) => <p className="user" key={userId}>{userActs.firstName(userId)}</p>)}
+          <h3>Testers</h3>
           {contest.testers.map((userId) => <p className="user" key={userId}>{userActs.firstName(userId)}</p>)}
           <br/>
         </div>
@@ -69,7 +72,7 @@ const Contest = ({match}) => {
 
       {contestStart <= Date.now() && <div>
         <h2>Problems</h2>
-        <ProblemList match={match}/>
+        {renderProblemList(problems)}
       </div>}
 
 
@@ -79,6 +82,7 @@ const Contest = ({match}) => {
       </div>}
     </div>
   );
-};
+}
+;
 
 export default Contest;

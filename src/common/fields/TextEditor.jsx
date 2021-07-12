@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 
-const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", value = ""}) => {
+const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", value = "", error = ""}) => {
   const Quill = window.Quill;
 
   const handleChange = (content) => {
@@ -10,7 +10,7 @@ const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", valu
 
   const imageHandler = (editor) => {
     const range = editor.getSelection();
-    const value = prompt('please copy paste the image url here.');
+    const value = prompt('Please paste the image url here.');
     if (value) {
       editor.insertEmbed(range.index, 'image', value, Quill.sources.USER);
     }
@@ -48,8 +48,9 @@ const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", valu
 
   return (
     <div>
-      <label htmlFor={name}><h3>{label}</h3></label>
+      <label htmlFor={name}>{label}</label>
       <div id={name}/>
+      {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
 };

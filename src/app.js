@@ -15,6 +15,7 @@ import LeftSideBar from "./apps/leftSideBar";
 import RightSideBar from "./apps/rightSideBar";
 import Home from "./apps/home";
 import Footer from "./apps/footer";
+import RestrictedRouter from "./apps/restricted/restrictedRouter";
 
 
 const App = () => {
@@ -37,12 +38,13 @@ const App = () => {
       </div>
       <div className={"col"}>
         <Switch>
-          <Route path={"/home"} component={Home}/>
           <Route path={urls.contests} component={ContestRoute}/>
+          <Route path={urls.home} component={Home}/>
           <Route path={urls.problems} component={ProblemRoute}/>
+          <Route path={urls.restricted} component={RestrictedRouter}/>
           <Route path={urls.submissions} component={SubmissionRoute}/>
           <Route path={urls.tutorials} component={TutorialRoute}/>
-          <Route path={urls.user} component={UserRoute}/>
+          <Route path={urls.users} component={UserRoute}/>
         </Switch>
       </div>
       <Route exact path={"/"}>
@@ -51,7 +53,7 @@ const App = () => {
       <div className={"col-auto"}>
         <RightSideBar/>
       </div>
-      <Footer />
+      <Footer/>
     </div>
 
   );

@@ -32,6 +32,7 @@ export const basicReducers = (name) => {
 
     [`${name}sReceived`]: (state, action) => {
       const data = action.payload.results;
+      state.list = [];
       if (data) {
         for (let i = 0; i < data.length; i++) {
           state.dict[data[i].id] = data[i];

@@ -6,7 +6,7 @@ class Input extends Component {
     }
 
     render() {
-        let {name, label, error, type, onChange, placeholder} = this.props;
+        let {name, label, error, type, onChange, placeholder, required} = this.props;
         const changeMiddle = (data) => {
             onChange(data);
             this.setState({value: data.currentTarget.value})
@@ -14,10 +14,10 @@ class Input extends Component {
         return (
             <div className="form-group">
                 {label &&
-                <label htmlFor="{name}"><h3>{label}</h3></label>
+                <label htmlFor="{name}">{label}</label>
                 }
                 <input type={type} value={this.state.value} onChange={changeMiddle} id={name} name={name} className="form-control"
-                       autoComplete="off" placeholder={placeholder} />
+                       autoComplete="off" placeholder={placeholder} required={required} />
                 <p><small/></p>
                 {error && <div className="alert alert-danger">{error}</div>}
             </div>
@@ -27,7 +27,8 @@ class Input extends Component {
 
 Input.defaultProps = {
     type: "text",
-    placeholder: "Input here"
+    placeholder: "Input here",
+    required: false
 }
 
 export default Input;

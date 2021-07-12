@@ -8,22 +8,25 @@ const ProblemList = () => {
 
   return (
     <div className="container">
-      <table className="table table-bordered table-striped">
-        <thead>
-        <tr>
-          <th>Name</th>
-          <th>Difficulty</th>
-        </tr>
-        </thead>
-        <tbody>
-        {problems.map((problem) => <tr key={problem.id}>
-          <td><Link to={`/problems/${problem.id}`}>{problem.title}</Link></td>
-          <td>{problem.difficulty}</td>
-        </tr>)}
-        </tbody>
-      </table>
+      {renderProblemList(problems)}
     </div>
   );
 }
 
 export default ProblemList;
+
+export const renderProblemList = (problems) =>
+  <table className="table table-bordered table-striped">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Difficulty</th>
+    </tr>
+    </thead>
+    <tbody>
+    {problems.map((problem) => <tr key={problem.id}>
+      <td><Link to={`/problems/${problem.id}`}>{problem.title}</Link></td>
+      <td>{problem.difficulty}</td>
+    </tr>)}
+    </tbody>
+  </table>

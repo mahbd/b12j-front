@@ -1,7 +1,7 @@
 import React from 'react';
-import BaseForm from "../../common/baseForm";
+import Form from "../../common/Form";
 
-class BulletinForm extends BaseForm {
+class BulletinForm extends Form {
     render() {
         return (
             <div>
