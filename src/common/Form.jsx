@@ -91,10 +91,8 @@ class Form extends Component {
     )
   }
 
-
-  renderInput(name, label, type = 'text', required=false) {
+  renderInput(name, label, type = 'text', required = false) {
     const {data, errors} = this.state;
-
     return <Input
       name={name}
       value={data[name]}
@@ -106,7 +104,7 @@ class Form extends Component {
     />
   }
 
-  renderSelect(name, options, label = '', multiple = false) {
+  renderSelect(name, options, label = '', multiple = false, df = false) {
     const error = this.state.errors[name];
     const handleChange = (input) => {
       let value;
@@ -120,10 +118,12 @@ class Form extends Component {
       }
       this.handleChange({currentTarget: {value, name}})
     }
+
     return <React.Fragment>
       <label htmlFor={name}>{label}</label>
-      <Select value={this.state.data[name]} isMulti={multiple} name={name} label={label} options={options} onChange={handleChange}/>
-      {error && <div className="alert alert-danger">{error}</div>}
+      <Select defaultValue={df} isMulti={multiple} name={name} label={label} options={options}
+              onChange={handleChange}/>
+      {error && <div className="alert-danger">{error}</div>}
     </React.Fragment>
   }
 

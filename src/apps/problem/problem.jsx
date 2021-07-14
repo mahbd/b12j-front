@@ -14,7 +14,7 @@ const Problem = ({match}) => {
     problem && <div className="container">
       <div className="row pt-2 pb-5">
         <div className="col"><Link to={"/problems"} className={"white-link"}>Back</Link></div>
-        <h1 className={"col-auto h1 text-secondary rounded-3"}>{problem.title}</h1>
+        <h1 className={"col-auto display-4 fw-bold text-secondary rounded-3"}>{problem.title}</h1>
 
         <div className="col text-end"><a className={"white-link"} href={"#codeEditor"}>Code Editor</a></div>
         <p className={"text-center"}>Writer: {userActs.fullName(problem.by)} <br/>

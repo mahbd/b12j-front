@@ -9,8 +9,8 @@ const UserRoute = () => {
     return (
         <Switch>
             <Route path={urls.login} component={Login} />
-            {/*<Route path="/users/profile" component={Profile} />*/}
-            {/*<Route path="/users/list" component={UserList}/>*/}
+            <Route path="/users/profile" component={Profile} />
+            <Route path="/users/list" component={UserList}/>
         </Switch>
     );
 };

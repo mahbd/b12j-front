@@ -3,18 +3,15 @@ import http from "../../common/httpService";
 import {apiEndpoint} from "../../configuration";
 import {SuperContext} from "../../context";
 
-const url = apiEndpoint
-
 const Standing = ({match}) => {
-    const {contestActs, userActs} = useContext(SuperContext);
+    const {userActs} = useContext(SuperContext);
     const {contestId} = match.params;
     const [duringContest, setDuringContest] = useState([]);
     const [afterContest, setAfterContest] = useState([]);
     useEffect(() => {
+      // ToDo: Start loading animation
         const apiCall = async () => {
-            contestActs.start(); // Start Load animation
-            const data = await http.get(`${url}/standing/${contestId}`)
-            contestActs.failure(); // Stop Load animation
+            const data = await http.get(`${apiEndpoint}/standing/${contestId}`)
             setDuringContest(data.data.during);
             setAfterContest(data.data.after);
         }

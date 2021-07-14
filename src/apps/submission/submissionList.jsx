@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
 import {SuperContext} from "../../context";
+import {pagination} from "../../common/helperFunctions";
 
 const SubmissionList = ({match}) => {
     const page = parseInt(match.params.page) || 1;
@@ -34,17 +35,3 @@ const SubmissionList = ({match}) => {
 };
 
 export default SubmissionList;
-
-export const pagination = (url, pages=1, page=1) => {
-    let pageList = []
-    if(page > 2) {
-        for(let i = page - 2; i <= pages && i <= page + 2; i++) pageList.push(i);
-    } else {
-        for(let i = 1; i <= pages && i <= 5; i++) pageList.push(i);
-    }
-    return <ul className="pagination">
-        {pageList.map(page => <li key={page} className="page-item">
-            <Link className="page-link" to={url + page.toString()} >{page}</Link>
-        </li>)}
-    </ul>
-}

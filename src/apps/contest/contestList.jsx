@@ -17,7 +17,7 @@ const ContestList = () => {
       ended.push(contestList[i]);
     } else upcoming.push(contestList[i]);
   }
-  console.log("Running Contest list")
+
   return (
     <div className="container p-2">
       <div className={css.heading4}>Current or Upcoming contests</div>

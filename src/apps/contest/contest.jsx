@@ -24,7 +24,7 @@ const Contest = ({match}) => {
         <div className={"pt-2"}>
           <div className={"row"}>
             <div className="col"/>
-            <div className="display-4 bg-secondary text-white col-auto rounded-3">{contest.title}</div>
+            <div className="display-4 fw-bold text-secondary col-auto rounded-3">{contest.title}</div>
             <div className="col"/>
           </div>
           <br/>

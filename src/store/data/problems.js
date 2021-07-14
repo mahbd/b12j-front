@@ -7,7 +7,6 @@ import {
 } from "../basicReducerTemplate";
 import {createSlice} from "@reduxjs/toolkit";
 import {apiCallBegan} from "../api";
-import {getPageNumberFromLink} from "../../apps/functions";
 
 const name = 'problem';
 

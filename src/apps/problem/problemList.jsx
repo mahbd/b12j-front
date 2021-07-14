@@ -1,14 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Link} from "react-router-dom";
 import {SuperContext} from "../../context";
+import {pagination} from "../../common/helperFunctions";
+import {urls} from "../../configuration";
 
-const ProblemList = () => {
+const ProblemList = ({match}) => {
+  const page = parseInt(match.params.page) || 1;
   const {problemActs} = useContext(SuperContext);
-  let problems = problemActs.getList();
+  let problems = problemActs.getList(page);
+
+  const pages = problemActs.totalPages();
 
   return (
     <div className="container">
       {renderProblemList(problems)}
+      {pagination(`${urls.problems}/page=`, pages, page)}
     </div>
   );
 }

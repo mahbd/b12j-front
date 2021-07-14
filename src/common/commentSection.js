@@ -73,7 +73,7 @@ const createCommentReact = (comment, userActs, commentCat) => {
 
       {getCurrentUser() && <div><span onClick={() => replyFunction(comment.id, commentCat)}
                  className={"text-primary clickable"}>Reply </span>
-        {getCurrentUser().id == comment.by &&
+        {getCurrentUser().id === comment.by &&
         <span onClick={() => deleteFunction(comment.id)} className={"text-danger clickable"}>Delete</span>}
       </div>}
       <div id={`${commentCat}_ic_${comment.id}`}/>
@@ -98,7 +98,7 @@ const createCommentDOM = (comment, userActs, commentCat) => {
     replyButton.className = "text-primary clickable";
     replyButton.onclick = () => replyFunction(comment.id);
     buttons.appendChild(replyButton);
-    if (getCurrentUser().id == comment.by) {
+    if (getCurrentUser().id === comment.by) {
       const deleteButton = document.createElement("span");
       deleteButton.innerText = "Delete";
       deleteButton.className = "text-danger ps-1 clickable";

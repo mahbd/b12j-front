@@ -1,13 +1,11 @@
-import React, {useContext, useState} from 'react';
-import {getCurrentUser} from "../../common/authService";
+import React, {useContext} from 'react';
 import {SuperContext} from "../../context";
 import {Link} from "react-router-dom";
 
 const Submission = ({match}) => {
   const {submissionId} = match.params;
-  const {submissionActs, userActs, contestActs, problemActs} = useContext(SuperContext);
+  const {submissionActs, userActs, problemActs} = useContext(SuperContext);
   const submission = submissionActs.getById(submissionId);
-  const contest = contestActs.getById(submission && submission.contest);
 
   // const contestEnd = new Date((contest && contest.end_time) || Date.now().toLocaleString());
   // const currentUser = getCurrentUser() && getCurrentUser().id;
@@ -16,11 +14,13 @@ const Submission = ({match}) => {
     submission && <div className="container pt-2">
       <table className={"table table-bordered"}>
         <thead>
-        <td className={"bg-dark text-white"}>ID</td>
-        <td className={"bg-dark text-white"}>Problem</td>
-        <td className={"bg-dark text-white"}>Submitter</td>
-        <td className={"bg-dark text-white"}>Language</td>
-        <td className={"bg-dark text-white"}>Verdict</td>
+        <tr>
+          <th className={"bg-dark text-white"}>ID</th>
+          <th className={"bg-dark text-white"}>Problem</th>
+          <th className={"bg-dark text-white"}>Submitter</th>
+          <th className={"bg-dark text-white"}>Language</th>
+          <th className={"bg-dark text-white"}>Verdict</th>
+        </tr>
         </thead>
         <tbody>
         <tr>

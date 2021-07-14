@@ -1,71 +1,73 @@
-import React, {useContext, useState} from 'react';
-import TextEditor from "../../common/fields/TextEditor";
-import Input from "../../common/fields/input";
-import CodeEditor from "../../common/fields/codeEditor";
+import React, {useContext, useState, useEffect} from 'react';
 import {SuperContext} from "../../context";
+import http from "../../common/httpService";
+import {apiEndpoint, urls} from "../../configuration";
+import {renderCodeEditor, renderCol2, renderEditor, renderInput, validate} from "../../common/helperFunctions";
 
 const ProblemForm = ({match, history}) => {
-    const {contestId, problemId} = match.params;
-    const {problemActs, contestActs} = useContext(SuperContext);
-    const [problem] = useState(problemActs.getById(problemId));
-    const [contest] = useState(contestActs.getById(contestId));
-
-    let data = {}
-    if (problem) {
-        data = {...problem}
-    } else {
-        data = {
-            contest_id: contestId,
-            inTerms: 'input Terms',
-            outTerms: 'output Terms',
-            text: 'statement',
-            title: 'problem title',
-            corCode: '',
-            conProbId: 'A',
-            notice: 'nothing',
-            time_limit: 1,
-            examples: 1
-        }
+  const {problemId} = match.params;
+  const {problemActs} = useContext(SuperContext);
+  const problem = problemActs.getById(problemId);
+  const [state, setSate] = useState({
+    data: {time_limit: 1, memory_limit: 256, examples: 1, difficulty: 1500},
+    errors: {},
+    schema: {
+      title: {label: "Problem title", required: true},
+      text: {label: "Problem statement", required: true, length: {min: 50}},
+      inTerms: {label: "Input terms", required: true, length: {min: 20}},
+      outTerms: {label: "Output terms", required: true, length: {min: 20}},
+      corCode: {label: "Correct code", required: true},
     }
+  });
 
+  useEffect(() => {
+    if (problem) setSate({...state, data: {...problem}});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [problem])
 
-    const setText = ({currentTarget}) => {
-        const {name, value} = currentTarget;
-        data[name] = value
+  const submit = async () => {
+    try {
+      if (problemId) {
+        await http.put(`${apiEndpoint}${urls.problems}/${problemId}/`, state.data);
+        history.push(`${urls.problems}/${problemId}`);
+      } else {
+        const res = await http.post(`${apiEndpoint}${urls.problems}/`, state.data);
+        history.push(`${urls.problems}/${res.data.id}`);
+      }
+    } catch (e) {
+      if (e.response.status === 400) {
+        setSate({...state, errors: e.response.data})
+      } else {
+        alert(`Unknown error occurred. Status: ${e.response.status}`);
+      }
     }
+  }
 
-    const submit = () => {
-        if(problem) {
-            problemActs.edit(data);
-            history.push(`/problems/${problem.id}`);
-        } else {
-            problemActs.add(data);
-            history.push('/users/profile')
-        }
-    }
+  return (
+    <div className="container pt-5">
+      {problemId && <div>
+        <h1>Edit problem {problem && problem.title}</h1>
+      </div>}
+      {!problemId && <h1>Add problem</h1>}
+      {renderInput('title', state, setSate)}
+      {renderEditor('text', state, setSate)}
+      {renderEditor('inTerms', state, setSate)}
+      {renderEditor('outTerms', state, setSate)}
+      {renderCodeEditor("corCode", state, setSate)}
 
-    return (
-        <div className="container pt-5">
-            {contest && <h1 className="text-info">{contest.title}</h1>}
-            <Input label="Problem name" name="title" value={data['title']} onChange={setText}/>
-            <TextEditor label="Problem Statement" name="text" value={data['text']} onChange={setText}/>
-            <TextEditor label="Input Terms" name="inTerms" value={data['inTerms']} onChange={setText}/>
-            <TextEditor label="Output Terms" name="outTerms" value={data['outTerms']} onChange={setText}/>
-            <Input label="Problem id" placeholder='A' name="conProbId" value={data['conProbId']} onChange={setText}/>
-            <CodeEditor mode="c_cpp" value={data['corCode']} theme="chrome" onChange={setText}
-                        name="corCode" font={20} />
-            <div className="bg-light">
-                <h3 className="text-info">Everything below are optional. You don't need to change.</h3>
-                <TextEditor label="Notice" name="notice" value={data['notice']} onChange={setText}/>
-                <Input label="Time Limit" name="time_limit" value={data['time_limit']} type="number"
-                       onChange={setText}/>
-                <Input label="Number of example" name="examples" value={data['examples']} type="number"
-                       onChange={setText}/>
-            </div>
-            <button className="btn-lg btn-success" onClick={submit}>Submit</button>
-            <br/><br/><br/>
-        </div>
-    );
+      <hr/> <hr/> <hr/>
+      <h3 className="text-info">Optionals</h3>
+      {renderEditor('notice', state, setSate)}
+      {renderCol2(renderInput('time_limit', state, setSate, 'number'),
+        renderInput('memory_limit', state, setSate, 'number'))}
+      {renderCol2(renderInput('difficulty', state, setSate, 'number'),
+        renderInput('examples', state, setSate, 'number'))}
+
+
+      <button className="btn btn-success" onClick={submit}>Submit Problem</button>
+      <br/><br/><br/>
+    </div>
+  );
 };
 
 export default ProblemForm;

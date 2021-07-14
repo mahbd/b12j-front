@@ -20,24 +20,34 @@ export const wssURL = () => {
     return protocol + document.location.host + "/ws";
 }
 
+const mainUrls = {
+    chat: '/chat',
+    home: '/home',
+    contests: '/contests',
+    problems: '/problems',
+    restricted: '/restricted',
+    submissions: '/submissions',
+    tutorials: '/tutorials',
+    users: '/users',
+}
+
+const subUrls = {
+    addProblem: `${mainUrls.problems}/add`,
+    editProblem: `${mainUrls.problems}/edit`,
+    login: `${mainUrls.users}/login`,
+    logout: `${mainUrls.users}/logout`,
+    profile: `${mainUrls.users}/profile`,
+    register: `${mainUrls.users}/register`,
+}
+
 export const urls = {
     cf: '/cf',
     cfProblems: 'cf/problems',
     cfStatics: 'cf/statics',
-    chat: '/chat',
-    contests: '/contests',
-    home: '/home',
-    login: '/users/login',
-    logout: '/users/logout',
-    problems: '/problems',
-    profile: '/users/profile',
-    register: '/users/register',
-    restricted: '/restricted',
     addEditContest: '/restricted/add-edit-contest',
     standing: '/contests/standing',
-    submissions: '/submissions',
-    tutorials: '/tutorials',
-    users: '/users',
+    ...mainUrls,
+    ...subUrls
 };
 
 export const navBar = {

@@ -6,6 +6,7 @@ import ContestForm from "./ContestForm";
 
 const RestrictedRouter = () => {
   return <Switch>
+    <Route path={`${urls.addEditContest}/:contestId`} component={ContestForm} />
     <Route path={urls.addEditContest} component={ContestForm} />
     <Route path={urls.restricted} component={Home}/>
   </Switch>

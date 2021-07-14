@@ -2,6 +2,7 @@ import {apiCallBegan} from "./api";
 import {urls} from "../configuration";
 import {getPageNumberFromLink} from "../apps/functions";
 import {getJwt} from "../common/authService";
+import {createSelector} from "reselect";
 
 export const standardInitialState = () => {
   return {
@@ -25,7 +26,7 @@ export const basicReducers = (name) => {
       if (state.dict[action.payload.id]) state.dict[action.payload.id] = action.payload;
       else {
         state.dict[action.payload.id] = action.payload;
-        state.list.push(action.payload)
+        state.list.push(action.payload.id);
       }
       state.loading = false;
     },
@@ -165,15 +166,15 @@ export class basicActions {
     this.start();
   }
 
-  list(objList = []) {
-    if (!objList) return;
-    const dict = this.store.getState()[`${this.name}s`].dict;
-    let data = []
+  list = createSelector(objList => objList, dict => this.store.getState()[`${this.name}s`].dict,
+    (objList, dict) =>  {
+    if (!objList) return [];
+    let data = [];
     for (let i = 0; i < objList.length; i++) {
       data.push(dict[objList[i]]);
     }
     return data;
-  }
+  });
 
   update = (data) => {
     this.store.dispatch({type: this.updated.type, payload: data})

@@ -1,58 +1,36 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import ReactQuill from 'react-quill';
 
-const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", value = "", error = ""}) => {
-  const Quill = window.Quill;
-
-  const handleChange = (content) => {
-    const obj = {currentTarget: {name: name, value: content}}
-    onChange(obj)
-  }
-
-  const imageHandler = (editor) => {
-    const range = editor.getSelection();
-    const value = prompt('Please paste the image url here.');
-    if (value) {
-      editor.insertEmbed(range.index, 'image', value, Quill.sources.USER);
-    }
-  }
-
-  const editorScript = () => {
-    const editor = new Quill("#" + name, {
-      'theme': 'snow', 'modules': {
-        'toolbar': {
-          'container': [['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'], ['link', 'image'], [{'list': 'ordered'}, {'list': 'bullet'}],
-            [{'script': 'sub'}, {'script': 'super'}], [{'header': [1, 2, 3, 4, 5, 6, false]}],
-            [{'color': []}, {'background': []}], [{'align': []}]],
-          handlers: {image: () => imageHandler(editor)}
+const modules = {
+  toolbar: {
+    'container': [['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code'], ['link', 'image'], [{'list': 'ordered'}, {'list': 'bullet'}],
+      [{'header': [1, 2, 3, 4, 5, 6, false]}], [{'script': 'sub'}, {'script': 'super'}],
+      [{'color': []}, {'background': []}], [{'align': []}]],
+    handlers: {
+      image: function () {
+        const editor = this.quill;
+        const range = editor.getSelection();
+        const value = prompt('Please paste the image url here.');
+        if (value) {
+          editor.insertEmbed(range.index, 'image', value);
         }
       }
-    });
-    editor.container.firstChild.innerHTML = value;
-    editor.on('text-change', () => {
-      handleChange(editor.container.firstChild.innerHTML);
-    });
-  }
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.async = true;
-    script.innerText = editorScript();
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
     }
-    // eslint-disable-line react-hooks/exhaustive-deps
-  }, []);
+  },
+}
 
+export const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", value = "", error = ""}) => {
+  const handleChange = (value) => {
+    onChange({currentTarget: {name: name, value: value}});
+  }
   return (
-    <div>
+    <div className="text-editor">
       <label htmlFor={name}>{label}</label>
-      <div id={name}/>
-      {error && <div className="alert alert-danger">{error}</div>}
+      <ReactQuill id={name} value={value} theme="snow" onChange={handleChange} modules={modules}/>
+      {error && <div className="alert-danger">{error}</div>}
     </div>
   );
-};
+}
 
 export default TextEditor;
