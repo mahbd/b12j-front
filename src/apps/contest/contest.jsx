@@ -3,8 +3,8 @@ import {renderProblemList} from "../problem/problemList";
 import Countdown from "react-countdown";
 import TutorialList from "../tutorial/tutorialList";
 import {Link} from "react-router-dom";
-import {FormattedHtml} from "../../common/objectViewFuncs";
 import {SuperContext} from "../../context";
+import {FormattedHtml} from "../../common/helperFunctions";
 
 const Contest = ({match}) => {
   const {contestId} = match.params;

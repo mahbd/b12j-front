@@ -166,7 +166,7 @@ export class basicActions {
     this.start();
   }
 
-  list = createSelector(objList => objList, dict => this.store.getState()[`${this.name}s`].dict,
+  list1 = createSelector(objList => objList, dict => this.store.getState()[`${this.name}s`].dict,
     (objList, dict) =>  {
     if (!objList) return [];
     let data = [];
@@ -175,6 +175,16 @@ export class basicActions {
     }
     return data;
   });
+
+  list = (objList) => {
+    if (!objList) return [];
+    let data = [];
+    const dict = this.store.getState()[`${this.name}s`].dict;
+    for (let i = 0; i < objList.length; i++) {
+      data.push(dict[objList[i]]);
+    }
+    return data;
+  }
 
   update = (data) => {
     this.store.dispatch({type: this.updated.type, payload: data})

@@ -98,7 +98,7 @@ const ContestList = () => {
 
 export default ContestList;
 
-const getTimeDifference = (start, end) => {
+function getTimeDifference(start, end) {
   let dif;
   if (end.getTime() > start.getTime()) {
     dif = (end.getTime() - start.getTime()) / 1000;
@@ -107,4 +107,13 @@ const getTimeDifference = (start, end) => {
   const minute = Math.floor((dif - hour * 3600) / 60);
   if (minute > 2) return `${hour} hour(s) ${minute} minute(s)`;
   return `${hour} hour(s)`;
+}
+
+export function convertContestList(contests) {
+  const res = [];
+  if (!contests) return res;
+  for (let x of contests) {
+    res.push({value: x.id, label: x.title})
+  }
+  return res;
 }

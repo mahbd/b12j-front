@@ -8,7 +8,6 @@ import {urls} from "../../configuration";
 const ProblemRoute = () => {
   return (
     <Switch>
-      <Route path={`${urls.problems}/contestId=:contestId`} component={ProblemList}/>
       <Route path={`${urls.problems}/page=:page`} component={ProblemList}/>
       <Route path={`${urls.addProblem}`} component={ProblemForm}/>
       <Route path={`${urls.editProblem}/:problemId`} component={ProblemForm}/>

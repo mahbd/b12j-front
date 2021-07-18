@@ -1,14 +1,13 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {SuperContext} from "../../context";
-import http from "../../common/httpService";
-import {apiEndpoint, urls} from "../../configuration";
-import {renderCodeEditor, renderCol2, renderEditor, renderInput, validate} from "../../common/helperFunctions";
+import {urls} from "../../configuration";
+import {renderCodeEditor, renderCol2, renderEditor, renderInput, submit, validate} from "../../common/helperFunctions";
 
 const ProblemForm = ({match, history}) => {
   const {problemId} = match.params;
   const {problemActs} = useContext(SuperContext);
   const problem = problemActs.getById(problemId);
-  const [state, setSate] = useState({
+  const [state, setState] = useState({
     data: {time_limit: 1, memory_limit: 256, examples: 1, difficulty: 1500},
     errors: {},
     schema: {
@@ -21,26 +20,12 @@ const ProblemForm = ({match, history}) => {
   });
 
   useEffect(() => {
-    if (problem) setSate({...state, data: {...problem}});
+    if (problem) setState({...state, data: {...problem}});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [problem])
 
-  const submit = async () => {
-    try {
-      if (problemId) {
-        await http.put(`${apiEndpoint}${urls.problems}/${problemId}/`, state.data);
-        history.push(`${urls.problems}/${problemId}`);
-      } else {
-        const res = await http.post(`${apiEndpoint}${urls.problems}/`, state.data);
-        history.push(`${urls.problems}/${res.data.id}`);
-      }
-    } catch (e) {
-      if (e.response.status === 400) {
-        setSate({...state, errors: e.response.data})
-      } else {
-        alert(`Unknown error occurred. Status: ${e.response.status}`);
-      }
-    }
+  const submitNow = async () => {
+    await submit(urls.problems, problemId, state, setState, history);
   }
 
   return (
@@ -49,22 +34,22 @@ const ProblemForm = ({match, history}) => {
         <h1>Edit problem {problem && problem.title}</h1>
       </div>}
       {!problemId && <h1>Add problem</h1>}
-      {renderInput('title', state, setSate)}
-      {renderEditor('text', state, setSate)}
-      {renderEditor('inTerms', state, setSate)}
-      {renderEditor('outTerms', state, setSate)}
-      {renderCodeEditor("corCode", state, setSate)}
+      {renderInput('title', state, setState)}
+      {renderEditor('text', state, setState)}
+      {renderEditor('inTerms', state, setState)}
+      {renderEditor('outTerms', state, setState)}
+      {renderCodeEditor("corCode", state, setState)}
 
       <hr/> <hr/> <hr/>
       <h3 className="text-info">Optionals</h3>
-      {renderEditor('notice', state, setSate)}
-      {renderCol2(renderInput('time_limit', state, setSate, 'number'),
-        renderInput('memory_limit', state, setSate, 'number'))}
-      {renderCol2(renderInput('difficulty', state, setSate, 'number'),
-        renderInput('examples', state, setSate, 'number'))}
+      {renderEditor('notice', state, setState)}
+      {renderCol2(renderInput('time_limit', state, setState, 'number'),
+        renderInput('memory_limit', state, setState, 'number'))}
+      {renderCol2(renderInput('difficulty', state, setState, 'number'),
+        renderInput('examples', state, setState, 'number'))}
 
 
-      <button className="btn btn-success" onClick={submit}>Submit Problem</button>
+      <button className="btn btn-success" disabled={validate(state)} onClick={submitNow}>Submit Problem</button>
       <br/><br/><br/>
     </div>
   );

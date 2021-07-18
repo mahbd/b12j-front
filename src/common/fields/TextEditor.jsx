@@ -1,5 +1,6 @@
-import React from 'react';
-import ReactQuill from 'react-quill';
+import React, {useEffect, useState} from 'react';
+
+import {useQuill} from 'react-quilljs';
 
 const modules = {
   toolbar: {
@@ -20,17 +21,38 @@ const modules = {
   },
 }
 
-export const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", value = "", error = ""}) => {
-  const handleChange = (value) => {
-    onChange({currentTarget: {name: name, value: value}});
-  }
+const TextEditor = ({onChange, name = "testEditor", label = "Hello editor", value = "", error = ""}) => {
+  const {quill, quillRef} = useQuill({modules, formats: {}});
+
+  const [editorValue, setEditorValue] = useState(value);
+
+  useEffect(() => {
+    if (quill && value !== quill.container.firstChild.innerHTML) {
+      quill.clipboard.dangerouslyPasteHTML(value);
+    }
+  }, [quill, value]);
+
+  useEffect(() => {
+    if (quill) {
+      quill.on('text-change', () => {
+        setEditorValue(quill.container.firstChild.innerHTML);
+      });
+    }
+  }, [quill]);
+
+  useEffect(() => {
+    onChange({currentTarget: {value: editorValue, name}});
+    // eslint-disable-next-line
+  }, [editorValue, name])
+
   return (
-    <div className="text-editor">
+    <div style={{width: "100%", height: "auto"}}>
       <label htmlFor={name}>{label}</label>
-      <ReactQuill id={name} value={value} theme="snow" onChange={handleChange} modules={modules}/>
+      <div id={name} ref={quillRef}/>
       {error && <div className="alert-danger">{error}</div>}
+      <br/>
     </div>
   );
-}
+};
 
 export default TextEditor;

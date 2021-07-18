@@ -2,17 +2,19 @@ import React from 'react';
 import {Route, Switch} from "react-router-dom";
 import Tutorial from "./tutorial";
 import TutorialList from "./tutorialList";
+import {urls} from "../../configuration";
+import TutorialForm from "./tutorialForm";
 
 const TutorialRoute = () => {
-    return (
-        <div>
-            <Switch>
-                <Route path="/tutorials/contestId=:contestId" component={TutorialList}/>
-                <Route path="/tutorials/:tutorialId" component={Tutorial}/>
-                <Route path="/tutorials" component={TutorialList}/>
-            </Switch>
-        </div>
-    );
+  return (
+    <Switch>
+      <Route path={`${urls.tutorials}/page=:page`} component={TutorialList} />
+      <Route path={`${urls.addTutorial}`} component={TutorialForm}/>
+      <Route path={`${urls.editTutorial}/:tutorialId`} component={TutorialForm}/>
+      <Route path={`${urls.tutorials}/:tutorialId`} component={Tutorial}/>
+      <Route path={urls.tutorials} component={TutorialList}/>
+    </Switch>
+  );
 };
 
 export default TutorialRoute;

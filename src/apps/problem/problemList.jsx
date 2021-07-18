@@ -13,7 +13,7 @@ const ProblemList = ({match}) => {
 
   return (
     <div className="container">
-      {renderProblemList(problems)}
+      {renderProblemList(problems, urls.problems)}
       {pagination(`${urls.problems}/page=`, pages, page)}
     </div>
   );
@@ -21,8 +21,17 @@ const ProblemList = ({match}) => {
 
 export default ProblemList;
 
-export const renderProblemList = (problems) =>
-  <table className="table table-bordered table-striped">
+export function convertProblemList(problems) {
+  if (!problems) return [];
+  let res = [];
+  for (let problem of problems) {
+    res.push({value: problem.id, label: problem.title})
+  }
+  return res;
+}
+
+export function renderProblemList(problems, url) {
+  return <table className="table table-bordered table-striped">
     <thead>
     <tr>
       <th>Name</th>
@@ -31,8 +40,10 @@ export const renderProblemList = (problems) =>
     </thead>
     <tbody>
     {problems.map((problem) => <tr key={problem.id}>
-      <td><Link to={`/problems/${problem.id}`}>{problem.title}</Link></td>
+      <td>
+        <Link to={`${url}/${problem.id}`}>{problem.title}</Link></td>
       <td>{problem.difficulty}</td>
     </tr>)}
     </tbody>
   </table>
+}

@@ -10,6 +10,8 @@ import isNumeric from "validator/es/lib/isNumeric";
 import isAlpha from "validator/es/lib/isAlpha";
 import isDate from "validator/es/lib/isDate";
 import Select from "react-select";
+import http from "./httpService";
+import {apiEndpoint} from "../configuration";
 
 export function copyToClipBoard(text) {
   const input = document.createElement('textarea');
@@ -27,6 +29,15 @@ export const renderCol2 = (ele1, ele2) => {
     <div className="col-sm">{ele2}</div>
   </div>
 }
+
+const formatHtml = (text) => {
+    if (text) {
+        return {__html: `${text}`}
+    }
+    return {__html: "<span />"}
+}
+
+export const FormattedHtml = ({text}) => <div dangerouslySetInnerHTML={formatHtml(text)}/>
 
 export const validate = (state) => {
   const {data, schema} = state;
@@ -84,6 +95,7 @@ const validateProperty = (name, value, schema) => {
 export const groupHandleChange = ({currentTarget}, state, setState) => {
   const {name, value} = currentTarget;
   const {data, schema, errors} = state;
+  if (value === data[name]) return;
   let temErrors = {};
   const temData = {...data, [name]: value};
 
@@ -98,9 +110,9 @@ export const groupHandleChange = ({currentTarget}, state, setState) => {
       }
     }
     // Set value
-    setState({...state, data: temData, errors: temErrors});
+      setState({...state, data: temData, errors: temErrors});
   } else {
-    setState({...state, data: temData});
+      setState({...state, data: temData});
   }
 }
 
@@ -185,6 +197,8 @@ export const renderEditor = (name, state, setState) => {
   const {data, errors, schema} = state;
   const error = errors[name];
   const label = (schema[name] && schema[name].label) || name;
+
+  // console.log(data)
   return <TextEditor
     label={label}
     name={name}
@@ -212,3 +226,21 @@ export const renderCodeEditor = (name, state, setState, mode = "c_cpp", theme = 
     {errors[name] && <div className={"alert-danger"}>{errors[name]}</div>}
   </React.Fragment>
 }
+
+export const submit = async (url, id, state, setState, history) => {
+    try {
+      if (id) {
+        await http.put(`${apiEndpoint}${url}/${id}/`, state.data);
+        history.push(`${url}/${id}`);
+      } else {
+        const res = await http.post(`${apiEndpoint}${url}/`, state.data);
+        history.push(`${url}/${res.data.id}`);
+      }
+    } catch (e) {
+      if (e.response.status === 400) {
+        setState({...state, errors: e.response.data})
+      } else {
+        alert(`Unknown error occurred. Status: ${e.response.status}`);
+      }
+    }
+  }

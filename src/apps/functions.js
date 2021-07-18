@@ -10,7 +10,7 @@ export const getPageNumberFromLink = (nextURL) => {
 
 export const extractDate = (dateString) => {
     const dateObj = new Date(dateString);
-    return moment(dateObj).format("D MMM YY:::H:m")
+    return moment(dateObj).format("DD MMM YYYY HH:mm")
 }
 
 export const arrayEquality = (arr1, arr2) => {

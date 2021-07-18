@@ -30,29 +30,33 @@ const App = () => {
   })
 
   return (
-    <div className={"row"}>
+    <div>
       <LoadingAnimation/>
       <NavBar/>
-      <div className={"col-auto"}>
-        <LeftSideBar/>
-      </div>
-      <div className={"col"}>
-        <Switch>
-          <Route path={urls.contests} component={ContestRoute}/>
-          <Route path={urls.home} component={Home}/>
-          <Route path={urls.problems} component={ProblemRoute}/>
-          <Route path={urls.restricted} component={RestrictedRouter}/>
-          <Route path={urls.submissions} component={SubmissionRoute}/>
-          <Route path={urls.tutorials} component={TutorialRoute}/>
-          <Route path={urls.users} component={UserRoute}/>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path={urls.home} component={Home}/>
+        <div className={"row"}>
+          <div className={"col-auto"}>
+            <LeftSideBar/>
+          </div>
+          <div className={"col"}>
+            <Switch>
+              <Route path={urls.contests} component={ContestRoute}/>
+              <Route path={urls.problems} component={ProblemRoute}/>
+              <Route path={urls.restricted} component={RestrictedRouter}/>
+              <Route path={urls.submissions} component={SubmissionRoute}/>
+              <Route path={urls.tutorials} component={TutorialRoute}/>
+              <Route path={urls.users} component={UserRoute}/>
+            </Switch>
+          </div>
+          <div className={"col-auto"}>
+            <RightSideBar/>
+          </div>
+        </div>
+      </Switch>
       <Route exact path={"/"}>
         <Redirect exact from={"/"} to={"/home"}/>
       </Route>
-      <div className={"col-auto"}>
-        <RightSideBar/>
-      </div>
       <Footer/>
     </div>
 

@@ -54,6 +54,14 @@ export class problemActions extends basicActions {
     return this.list(this.store.getState()[`${name}s`].list[page]);
   }
 
+  getAllList = () => {
+    let fullList = [];
+    for (let i = 1; i <= (this.totalPages() || 1); i++) {
+      fullList = [...fullList, ...this.getList(i)];
+    }
+    return fullList;
+  }
+
   _loadContestProblems = (contestId) => {
     const url = `/problems/contest_problems/?contest_id=${contestId}`;
     if (this.store.getState()[`${this.name}s`].fetchedContests[contestId] || this.pendingContests[contestId]) return;
