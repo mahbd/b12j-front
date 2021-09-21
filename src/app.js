@@ -12,7 +12,6 @@ import SubmissionRoute from "./apps/submission/submissionRoute";
 import TutorialRoute from "./apps/tutorial/tutorialRoute";
 import { SuperContext } from "./context";
 import LeftSideBar from "./apps/leftSideBar";
-import RightSideBar from "./apps/rightSideBar";
 import Home from "./apps/home";
 import Footer from "./apps/footer";
 import RestrictedRouter from "./apps/restricted/restrictedRouter";

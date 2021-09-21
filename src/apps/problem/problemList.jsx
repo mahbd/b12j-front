@@ -31,10 +31,12 @@ export function convertProblemList(problems) {
    return res;
 }
 
-export function renderProblemList(problems, url) {
+export function renderProblemList(problems) {
    const data = [];
    for (let problem of problems) {
-      data.push([<Link to={`${url}/${problem.id}`}>{problem.title}</Link>, problem.difficulty]);
+      if (problem)  {
+         data.push([<Link to={`${urls.problems}/${problem.id}`}>{problem.title}</Link>, problem.difficulty]);
+      }
    }
    return <Table headers={["Name", "Difficulty"]} body={data} />;
 }

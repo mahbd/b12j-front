@@ -20,7 +20,7 @@ const Standing = ({ match }) => {
    }, [contestId]);
 
    return (
-      <div className="container">
+      <div className="container m-2">
          <h2>During Contest</h2>
          <StandingTable position={1} objectList={duringContest} userActs={userActs} />
          <h2>After Contest</h2>

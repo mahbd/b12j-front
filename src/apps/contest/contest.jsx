@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { renderProblemList } from "../problem/problemList";
 import Countdown from "react-countdown";
-import TutorialList from "../tutorial/tutorialList";
+import { renderTutorialList } from "../tutorial/tutorialList";
 import { SuperContext } from "../../context";
 import { FormattedHtml } from "../../common/helperFunctions";
 import { MultiButton } from "../../common/customTags";
@@ -9,11 +9,21 @@ import { UserListSingleRow } from "../user/userList";
 
 const Contest = ({ match }) => {
    const { contestId } = match.params;
-   const { contestActs, userActs, problemActs } = useContext(SuperContext);
+   const { contestActs, userActs, problemActs, tutorialActs } = useContext(SuperContext);
    const contest = contestActs.getById(contestId);
-   let problems = [];
+   let problems = [], tutorials = [];
    if (contestId) {
       problems = problemActs.contestProblems(contestId);
+   }
+
+   if (contest) {
+      for (let tutorialId of contest.tutorials) {
+         tutorials.push(tutorialActs.getById(tutorialId));
+      }
+
+      for (let problem of contest.problems) {
+         problems.push(problemActs.getById(problem.problem));
+      }
    }
 
    const contestStart = new Date((contest && contest.start_time) || Date.now().toLocaleString());
@@ -28,7 +38,7 @@ const Contest = ({ match }) => {
    ];
 
    return (
-      <div className="container">
+      <div className={"container m-2"}>
          {contest && (
             <div>
                <div className={"pt-2"}>
@@ -60,7 +70,7 @@ const Contest = ({ match }) => {
             </div>
          )}
 
-         {contestStart <= Date.now() && (
+         {problems && contestStart <= Date.now() && (
             <div>
                <h2>Problems</h2>
                {renderProblemList(problems)}
@@ -70,7 +80,7 @@ const Contest = ({ match }) => {
          {contestEnd <= Date.now() && (
             <div>
                <h2>Tutorials</h2>
-               <TutorialList match={match} />
+               {renderTutorialList(tutorials, userActs)}
             </div>
          )}
       </div>
