@@ -1,22 +1,24 @@
-import React, { useContext } from "react";
-import Loader from "react-loader-spinner";
-import { SuperContext } from "../context";
+import React from "react";
 
 const LoadingAnimation = () => {
-   const { userActs } = useContext(SuperContext);
-   const state = userActs.store.getState();
+  return <div id={"loading-animation"} className={"loader-container"}>
+    <div className="loader" />
+    <p id={"loading-text"} className={"text-success h3 loader-text text-center"} />
+  </div>;
+};
 
-   const isLoading =
-      state.problems.loading || state.users.loading || state.contests.loading || state.submissions.loading;
-   return (
-      isLoading && (
-         <div className={"loader-back"}>
-            <div className={"loader-center"}>
-               <Loader type="BallTriangle" color="#00BFFF" height={"20%"} width={"20%"} />
-            </div>
-         </div>
-      )
-   );
+export const startLoading = (text = "") => {
+  const loading = document.getElementById("loading-animation");
+  const t = document.getElementById("loading-text");
+  loading.style.display = "block";
+  t.innerText = text;
+};
+
+export const stopLoading = () => {
+  const loading = document.getElementById("loading-animation");
+  const t = document.getElementById("loading-text");
+  loading.style.display = "none";
+  t.innerText = "";
 };
 
 export default LoadingAnimation;

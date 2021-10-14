@@ -108,7 +108,7 @@ const validateProperty = (name, value, schema) => {
 export const groupHandleChange = ({ currentTarget }, state, setState) => {
    const { name, value } = currentTarget;
    const { data, schema, errors } = state;
-   if (value === data[name]) return;
+   if (value == data[name]) return;
    let temErrors = {};
    const temData = { ...data, [name]: value };
 

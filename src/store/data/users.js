@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {createSelector} from "reselect";
 import { getCurrentUser } from "../../common/authService";
 import { basicActions, basicReducers, standardInitialState } from "../basicReducerTemplate";
+import { serverUrls } from "../../configuration";
 
 const name = "user";
 const slice = createSlice({
@@ -31,11 +33,15 @@ export class userActions extends basicActions {
       if (this.store.getState().users.loading) {
          return;
       }
-      this._load("/users/?limit=1000");
+      this._load(`${serverUrls.userList}/?limit=1000`);
    };
 
    getList = () => {
-      const userList = this.list(this.store.getState().users.list);
+      const state = this.store.getState();
+      const userList = createSelector(
+        () => state.users.list,
+        users => this.list(users)
+      )()
       if (userList.length === 0) this.loadUsers();
       return userList;
    };

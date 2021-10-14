@@ -4,13 +4,19 @@ import Login from "./login";
 import { urls } from "../../configuration";
 import UserList from "./userList";
 import Profile from "./profile";
+import Register from "./register";
+import RegistrationSuccessful from "./registrationSuccessful";
+import ResendActivation from "./resendActivation";
 
 const UserRoute = () => {
    return (
       <Switch>
          <Route path={urls.login} component={Login} />
-         <Route path="/users/profile" component={Profile} />
-         <Route path="/users/list" component={UserList} />
+         <Route path={urls.profile} component={Profile} />
+         <Route path={urls.register} component={Register} />
+         <Route path={urls.registerSuccess} component={RegistrationSuccessful} />
+         <Route path={urls.resendActivationEmail} component={ResendActivation} />
+         <Route path={urls.userList} component={UserList} />
       </Switch>
    );
 };

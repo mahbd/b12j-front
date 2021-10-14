@@ -5,7 +5,7 @@ import httpService from "./httpService";
 import { getCurrentUser } from "./authService";
 import { apiEndpoint } from "../configuration";
 import { SuperContext } from "../context";
-import { Select } from "./fields";
+import { AutocompleteSelect } from "./fields";
 import { renderColX, validate } from "./helperFunctions";
 import { CodeEditor } from "./editor";
 
@@ -56,7 +56,7 @@ const ProblemCode = ({ problem }) => {
    return (
       <div id={"codeEditor"} className={"m-2"}>
          {renderColX([
-            <Select
+            <AutocompleteSelect
                name={"theme"}
                state={state}
                setState={setState}
@@ -65,7 +65,7 @@ const ProblemCode = ({ problem }) => {
                   { value: "gob", label: "Dark" },
                ]}
             />,
-            <Select
+            <AutocompleteSelect
                name={"language"}
                state={state}
                setState={setState}
@@ -74,7 +74,7 @@ const ProblemCode = ({ problem }) => {
                   { value: "c_cpp", label: "C/C++" },
                ]}
             />,
-            <Select
+            <AutocompleteSelect
                name={"font"}
                state={state}
                setState={setState}

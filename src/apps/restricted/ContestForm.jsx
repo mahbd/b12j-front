@@ -3,7 +3,7 @@ import { SuperContext } from "../../context";
 import { renderColX } from "../../common/helperFunctions";
 import http from "../../common/httpService";
 import { apiEndpoint, urls } from "../../configuration";
-import { Input, Select } from "../../common/fields";
+import { Input, AutocompleteSelect } from "../../common/fields";
 import { TextEditor } from "../../common/editor";
 
 const ContestForm = ({ match, history }) => {
@@ -36,7 +36,7 @@ const ContestForm = ({ match, history }) => {
       }
       setOptions(userList);
       // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [users]);
+   }, []);
 
    const submit = async () => {
       try {
@@ -65,15 +65,15 @@ const ContestForm = ({ match, history }) => {
          )}
          <br />
          {renderColX([
-            <Select name={"writers"} options={options} state={state} setState={setState} multiple={true} />,
-            <Select name={"testers"} options={options} state={state} setState={setState} multiple={true} />,
+            <AutocompleteSelect name={"writers"} options={options} state={state} setState={setState} multiple={true} />,
+            <AutocompleteSelect name={"testers"} options={options} state={state} setState={setState} multiple={true} />,
          ])}
 
          <Input name={"title"} state={state} setState={setState} />
-         {renderColX(
+         {renderColX([
             <Input name={"start_time"} state={state} setState={setState} type={"datetime-local"} />,
             <Input name={"end_time"} state={state} setState={setState} type={"datetime-local"} />
-         )}
+         ])}
          <TextEditor name={"text"} state={state} setState={setState} />
          <button className={"btn btn-outline-success"} onClick={submit}>
             {" "}

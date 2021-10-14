@@ -1,7 +1,10 @@
 import axios from "axios";
-import { getJwt } from "./authService";
+import { keys } from "../configuration";
 
-axios.defaults.headers.common["x-auth-token"] = getJwt();
+export function getJwt() {
+  return localStorage.getItem(keys.ACCESS);
+}
+axios.defaults.headers.common["authorization"] = "Bearer " + getJwt();
 
 axios.interceptors.response.use(null, (error) => {
    const expectedError = error.response && error.response.status >= 400 && error.response.status < 500;

@@ -5,7 +5,7 @@ import { renderColX, submit, validate } from "../../common/helperFunctions";
 import { convertProblemList } from "../problem/problemList";
 import { convertContestList } from "../contest/contestList";
 import http from "../../common/httpService";
-import { Input, Select } from "../../common/fields";
+import { Input, AutocompleteSelect } from "../../common/fields";
 import { TextEditor } from "../../common/editor";
 
 const TutorialForm = ({ match, history }) => {
@@ -60,8 +60,8 @@ const TutorialForm = ({ match, history }) => {
          <TextEditor name={"text"} state={state} setState={setState} />
          <Input name={"hidden_till"} state={state} setState={setState} type={"datetime-local"} />
          {renderColX([
-            <Select name={"contest"} options={convertContestList(contests)} state={state} setState={setState} />,
-            <Select name={"problem"} options={convertProblemList(problems)} state={state} setState={setState} />,
+            <AutocompleteSelect name={"contest"} options={convertContestList(contests)} state={state} setState={setState} />,
+            <AutocompleteSelect name={"problem"} options={convertProblemList(problems)} state={state} setState={setState} />,
          ])}
          <button className="btn btn-success" disabled={validate(state)} onClick={submitNow}>
             Submit Tutorial
