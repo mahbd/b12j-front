@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 import { BrowserRouter} from "react-router-dom";
-import { getJwt, verifyUpdateAccessToken } from "./common/authService";
+import { getJwt, verifyUpdateAccessToken } from "./components/authService";
 import { wssURL } from "./configuration";
 import { SuperContext } from "./context";
 import WebSocketReceive from "./store/webSocketReceive";
@@ -16,7 +16,7 @@ import { userActions } from "./store/data/users";
 import React, { useEffect } from "react";
 
 import "./index.css";
-import LoadingAnimation from "./common/loadingAnimation";
+import LoadingAnimation from "./components/loadingAnimation";
 import App from "./app";
 
 const generateData = () => {

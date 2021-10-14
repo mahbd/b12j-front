@@ -1,6 +1,6 @@
 import React, { useContext} from "react";
 import { SuperContext } from "../../context";
-import { Table } from "../../common/customTags";
+import { Table } from "../../components/customTags";
 
 const UserList = () => {
   const { userActs } = useContext(SuperContext);

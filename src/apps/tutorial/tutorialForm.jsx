@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SuperContext } from "../../context";
 import { apiEndpoint, urls } from "../../configuration";
-import { renderColX, submit, validate } from "../../common/helperFunctions";
+import { renderColX, submit, validate } from "../../components/helperFunctions";
 import { convertProblemList } from "../problem/problemList";
 import { convertContestList } from "../contest/contestList";
-import http from "../../common/httpService";
-import { Input, AutocompleteSelect } from "../../common/fields";
-import { TextEditor } from "../../common/editor";
+import http from "../../components/httpService";
+import { Input, AutocompleteSelect } from "../../components/fields";
+import { TextEditor } from "../../components/editor";
 
 const TutorialForm = ({ match, history }) => {
    const { tutorialId } = match.params;

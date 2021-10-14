@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { SuperContext } from "../../context";
-import { pagination } from "../../common/helperFunctions";
+import { pagination } from "../../components/helperFunctions";
 import { urls } from "../../configuration";
-import { Table } from "../../common/customTags";
+import { Table } from "../../components/customTags";
 
 const ProblemList = ({ match }) => {
    const page = parseInt(match.params.page) || 1;
    const { problemActs } = useContext(SuperContext);
    let problems = problemActs.getList(page);
-
    const pages = problemActs.totalPages();
 
    return (

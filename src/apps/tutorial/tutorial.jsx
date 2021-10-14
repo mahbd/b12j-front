@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { SuperContext } from "../../context";
-import { FormattedHtml } from "../../common/helperFunctions";
+import { FormattedHtml } from "../../components/helperFunctions";
 import { urls } from "../../configuration";
-import { getCurrentUser } from "../../common/authService";
+import { getCurrentUser } from "../../components/authService";
 
 const Tutorial = ({ match }) => {
    const { tutorialActs} = useContext(SuperContext);

@@ -1,6 +1,6 @@
 import React from "react";
-import { css } from "../main_css";
-import { Table } from "../common/customTags";
+import { css } from "../../main_css";
+import { Table } from "../../components/customTags";
 
 const RightSideBar = () => {
    return (

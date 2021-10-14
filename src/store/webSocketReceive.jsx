@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { SuperContext } from "../context";
-import { getJwt } from "../common/authService";
+import { getJwt } from "../components/authService";
 
 const WebSocketReceive = () => {
    const { ws, contestActs, problemActs, submissionActs, userActs, tutorialActs } = useContext(SuperContext);

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { SuperContext } from "../../context";
 import { Link } from "react-router-dom";
-import { Table, Verdict } from "../../common/customTags";
+import { Table, Verdict } from "../../components/customTags";
 import { urls } from "../../configuration";
 
 const Submission = ({ match }) => {

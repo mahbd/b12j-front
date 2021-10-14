@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "../main_css";
+import { css } from "../../main_css";
 
 const Footer = () => {
    const d = new Date();

@@ -1,5 +1,5 @@
 import React from "react";
-import RegisterForm from "../../common/forms/registerForm";
+import RegisterForm from "../../components/forms/registerForm";
 
 const Register = ({history}) => {
   return (

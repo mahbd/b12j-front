@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { SuperContext } from "../../context";
 import { urls } from "../../configuration";
-import { pagination } from "../../common/helperFunctions";
-import { Table } from "../../common/customTags";
+import { pagination } from "../../components/helperFunctions";
+import { Table } from "../../components/customTags";
 
 const TutorialList = ({ match }) => {
    const page = parseInt(match.params.page) || 1;

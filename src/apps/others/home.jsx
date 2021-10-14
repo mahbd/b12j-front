@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Fade, Zoom, Slide } from "react-awesome-reveal";
-import { getCurrentUser } from "../common/authService";
+import { getCurrentUser } from "../../components/authService";
 
 const Home = () => {
    const user = getCurrentUser();

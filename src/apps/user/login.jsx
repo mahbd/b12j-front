@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../common/forms/loginForm";
+import LoginForm from "../../components/forms/loginForm";
 
 const Login = ({history}) => {
   return (

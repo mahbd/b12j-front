@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import { SuperContext } from "../../context";
 import { urls } from "../../configuration";
-import { renderColX, submit, validate } from "../../common/helperFunctions";
-import { Input } from "../../common/fields";
-import { TextEditor } from "../../common/editor";
+import { renderColX, submit, validate } from "../../components/helperFunctions";
+import { Input } from "../../components/fields";
+import { TextEditor } from "../../components/editor";
 
 const ProblemForm = ({ match, history }) => {
    const { problemId } = match.params;

@@ -1,6 +1,6 @@
-import EmailForm from "../../common/forms/emailForm";
-import { startLoading, stopLoading } from "../../common/loadingAnimation";
-import httpService from "../../common/httpService";
+import EmailForm from "../../components/forms/emailForm";
+import { startLoading, stopLoading } from "../../components/loadingAnimation";
+import httpService from "../../components/httpService";
 import { apiEndpoint, serverUrls, urls } from "../../configuration";
 
 class ResendActivation extends EmailForm {

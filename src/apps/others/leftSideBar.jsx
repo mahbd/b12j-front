@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { css } from "../main_css";
-import { SuperContext } from "../context";
+import { css } from "../../main_css";
+import { SuperContext } from "../../context";
 import { Link } from "react-router-dom";
-import { urls } from "../configuration";
-import { Table } from "../common/customTags";
+import { urls } from "../../configuration";
+import { Table } from "../../components/customTags";
 
 const LeftSideBar = () => {
    const { contestActs, tutorialActs } = useContext(SuperContext);

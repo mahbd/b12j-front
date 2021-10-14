@@ -3,7 +3,7 @@ import { SuperContext } from "../context";
 import { copyToClipBoard } from "./helperFunctions";
 import { css } from "../main_css";
 import { getCurrentUser } from "./authService";
-import { extractDate } from "../apps/functions";
+import { extractDate } from "../apps/others/functions";
 
 const CommentSection = ({ commentList, commentCat }) => {
    const { userActs } = useContext(SuperContext);

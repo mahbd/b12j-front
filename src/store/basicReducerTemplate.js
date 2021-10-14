@@ -1,7 +1,7 @@
 import { apiCallBegan } from "./api";
 import { urls } from "../configuration";
-import { getPageNumberFromLink } from "../apps/functions";
-import { getJwt } from "../common/authService";
+import { getPageNumberFromLink } from "../apps/others/functions";
+import { getJwt } from "../components/authService";
 import { createSelector } from "reselect";
 
 export const standardInitialState = () => {

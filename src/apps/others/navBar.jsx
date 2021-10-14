@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { css } from "../main_css";
-import { SuperContext } from "../context";
-import { urls } from "../configuration";
-import { logout } from "../common/authService";
+import { css } from "../../main_css";
+import { SuperContext } from "../../context";
+import { urls } from "../../configuration";
+import { logout } from "../../components/authService";
 
 const NavBar = () => {
    const { userActs } = useContext(SuperContext);

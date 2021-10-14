@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createAction } from "@reduxjs/toolkit";
-import { getJwt } from "../common/authService";
+import { getJwt } from "../components/authService";
 import { apiEndpoint } from "../configuration";
 
 export const apiCallBegan = createAction("api/callBegan");

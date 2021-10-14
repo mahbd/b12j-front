@@ -40,7 +40,7 @@ const subUrls = {
   registerSuccess: `${mainUrls.users}/register-success`,
   resetPassword: `${mainUrls.users}/reset-password`,
   resendActivationEmail: `${mainUrls.users}/resend-email`,
-  userList: `${mainUrls.users}/users`,
+  userList: `${mainUrls.users}/users`
 };
 
 export const urls = {
@@ -61,6 +61,7 @@ export const serverUrls = {
   resendActivationEmail: "/auth/users/resend_activation",
   userList: "/auth/users",
   verifyToken: "/auth/jwt/verify",
+  submissions: "/submissions"
 };
 
 export const firebaseConfig = {

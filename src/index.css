@@ -58,3 +58,8 @@ html, body {
         transform: rotate(360deg);
     }
 }
+
+.vertical-line {
+  border-left: 6px solid green;
+  height: 100%;
+}

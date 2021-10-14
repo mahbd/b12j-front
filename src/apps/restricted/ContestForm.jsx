@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { SuperContext } from "../../context";
-import { renderColX } from "../../common/helperFunctions";
-import http from "../../common/httpService";
+import { renderColX } from "../../components/helperFunctions";
+import http from "../../components/httpService";
 import { apiEndpoint, urls } from "../../configuration";
-import { Input, AutocompleteSelect } from "../../common/fields";
-import { TextEditor } from "../../common/editor";
+import { Input, AutocompleteSelect } from "../../components/fields";
+import { TextEditor } from "../../components/editor";
 
 const ContestForm = ({ match, history }) => {
    const { contestId } = match.params;

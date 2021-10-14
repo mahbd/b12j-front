@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
-import httpService from "./httpService";
 import { apiEndpoint, keys, serverUrls, urls } from "../configuration";
+import httpService from "./httpService";
 
 export function logout(redirectURL = "/") {
   localStorage.removeItem(keys.ACCESS);

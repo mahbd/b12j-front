@@ -1,13 +1,13 @@
 import React, { useContext } from "react";
-import ProblemCode from "../../common/problemCode";
 import { Link } from "react-router-dom";
 import { SuperContext } from "../../context";
 import { urls } from "../../configuration";
-import { FormattedHtml } from "../../common/helperFunctions";
-import { getCurrentUser } from "../../common/authService";
-import { Table } from "../../common/customTags";
+import { FormattedHtml } from "../../components/helperFunctions";
+import { getCurrentUser } from "../../components/authService";
+import { Table } from "../../components/customTags";
+import ProblemCodeForm from "../../components/forms/problemCodeForm";
 
-const Problem = ({ match }) => {
+const Problem = ({ match, history }) => {
    const { problemActs, userActs } = useContext(SuperContext);
    const { problemId } = match.params;
    const problem = problemActs.getById(problemId);
@@ -39,14 +39,14 @@ const Problem = ({ match }) => {
             <div>
                {problem.notice && <div className={"alert alert-secondary"}>{problem.notice}</div>}
                <b className={"h5"}>Problem statement</b>
-               <FormattedHtml text={problem.text} /> <br />
+               <FormattedHtml text={problem.description} /> <br />
                <b className={"h5"}>Input Terms</b>
-               <FormattedHtml text={problem.inTerms} /> <br />
+               <FormattedHtml text={problem.input_terms} /> <br />
                <b className={"h5"}>Output Terms</b>
-               <FormattedHtml text={problem.outTerms} /> <br />
+               <FormattedHtml text={problem.output_terms} /> <br />
             </div>
             <TestCases test_cases={problem.test_cases} />
-            <ProblemCode problem={problem} />
+            <ProblemCodeForm problem={problem} history={history} />
          </div>
       )
    );

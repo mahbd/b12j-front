@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import http from "../../common/httpService";
+import http from "../../components/httpService";
 import { apiEndpoint } from "../../configuration";
 import { SuperContext } from "../../context";
-import { Table } from "../../common/customTags";
+import { Table } from "../../components/customTags";
 
 const Standing = ({ match }) => {
    const { userActs } = useContext(SuperContext);

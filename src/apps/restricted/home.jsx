@@ -1,5 +1,5 @@
 import React from "react";
-import { getCurrentUser } from "../../common/authService";
+import { getCurrentUser } from "../../components/authService";
 import { Link } from "react-router-dom";
 import { urls } from "../../configuration";
 

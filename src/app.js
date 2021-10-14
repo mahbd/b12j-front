@@ -5,8 +5,10 @@ import { urls } from "./configuration";
 import UserRoute from "./apps/user/userRoute";
 
 import { SuperContext } from "./context";
-import Home from "./apps/home";
-import Footer from "./apps/footer";
+import Home from "./apps/others/home";
+import Footer from "./apps/others/footer";
+import ContestRoute from "./apps/contest/contestRoute";
+import ProblemRoute from "./apps/problem/problemRoute";
 
 const App = () => {
   const [refresh, setRefresh] = useState(false);
@@ -16,7 +18,7 @@ const App = () => {
     setTimeout(() => {
       setRefresh(!refresh);
       unSub();
-    }, 100);
+    }, 20);
   });
 
   return (
@@ -30,8 +32,8 @@ const App = () => {
           </div>
           <div className={"col-10"}>
             <Switch>
-              {/*<Route path={urls.contests} component={ContestRoute} />*/}
-              {/*<Route path={urls.problems} component={ProblemRoute} />*/}
+              <Route path={urls.contests} component={ContestRoute} />
+              <Route path={urls.problems} component={ProblemRoute} />
               {/*<Route path={urls.restricted} component={RestrictedRouter} />*/}
               {/*<Route path={urls.submissions} component={SubmissionRoute} />*/}
               {/*<Route path={urls.tutorials} component={TutorialRoute} />*/}

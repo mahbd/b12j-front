@@ -1,6 +1,5 @@
 import { groupHandleChange } from "./helperFunctions";
 import React, { useEffect, useState } from "react";
-import AceEditor from "react-ace";
 import { useQuill } from "react-quilljs";
 
 import "ace-builds/src-noconflict/mode-python";
@@ -67,35 +66,6 @@ const QuillEditor = ({ onChange, name = "testEditor", label = "Hello editor", va
          {error && <div className="alert-danger">{error}</div>}
          <br />
       </div>
-   );
-};
-
-export const CodeEditor = ({ name, state, setState, mode = "c_cpp", theme = "chrome", font = 20 }) => {
-   const { data, errors, schema } = state;
-   const label = (schema[name] && schema[name].label) || name;
-   const onChangeCode = (newValue) => {
-      groupHandleChange({ currentTarget: { name, value: newValue } }, state, setState);
-   };
-   return (
-      <React.Fragment>
-         <label htmlFor={name}>{label}</label>
-         <AceEditor
-            mode={mode}
-            value={data[name]}
-            theme={theme}
-            onChange={onChangeCode}
-            name={name}
-            fontSize={font}
-            width={"100%"}
-            enableBasicAutocompletion={true}
-            enableLiveAutocompletion={true}
-            enableSnippets={true}
-            setOptions={{
-               useWorker: false,
-            }}
-         />
-         {errors[name] && <div className={"alert-danger"}>{errors[name]}</div>}
-      </React.Fragment>
    );
 };
 

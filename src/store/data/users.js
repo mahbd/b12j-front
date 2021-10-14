@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {createSelector} from "reselect";
-import { getCurrentUser } from "../../common/authService";
+import { getCurrentUser } from "../../components/authService";
 import { basicActions, basicReducers, standardInitialState } from "../basicReducerTemplate";
 import { serverUrls } from "../../configuration";
 
@@ -37,9 +37,8 @@ export class userActions extends basicActions {
    };
 
    getList = () => {
-      const state = this.store.getState();
       const userList = createSelector(
-        () => state.users.list,
+        () => this.store.getState()[`${name}s`].list,
         users => this.list(users)
       )()
       if (userList.length === 0) this.loadUsers();
