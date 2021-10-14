@@ -7,11 +7,13 @@ const LoadingAnimation = () => {
   </div>;
 };
 
-export const startLoading = (text = "") => {
+export const startLoading = (text = null) => {
   const loading = document.getElementById("loading-animation");
-  const t = document.getElementById("loading-text");
+  if (text) {
+    const t = document.getElementById("loading-text");
+    t.innerText = text;
+  }
   loading.style.display = "block";
-  t.innerText = text;
 };
 
 export const stopLoading = () => {

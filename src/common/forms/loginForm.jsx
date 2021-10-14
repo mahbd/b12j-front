@@ -4,7 +4,7 @@ import Joi from "joi";
 import { apiEndpoint, serverUrls, urls } from "../../configuration";
 import httpService from "../httpService";
 import { setJwt, setRefreshToken } from "../authService";
-import { startLoading, stopLoading } from "../loadingAnimation";
+import { startLoading} from "../loadingAnimation";
 import { Link } from "react-router-dom";
 
 class LoginForm extends BaseForm {
@@ -24,12 +24,10 @@ class LoginForm extends BaseForm {
       const {access, refresh} = res.data;
       setJwt(access);
       setRefreshToken(refresh);
-      stopLoading();
       this.props.history.replace("/users/profile");
     } catch (ex) {
       if (ex.response && (ex.response.status === 400 || ex.response.status === 401)) {
         const errors = {...this.state.errors, username: "No active account found with the given credentials"};
-        stopLoading();
         this.setState({ errors });
       }
     }
