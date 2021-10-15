@@ -9,6 +9,7 @@ import Home from "./apps/others/home";
 import Footer from "./apps/others/footer";
 import ContestRoute from "./apps/contest/contestRoute";
 import ProblemRoute from "./apps/problem/problemRoute";
+import NavBar from "./apps/others/navBar";
 
 const App = () => {
   const [refresh, setRefresh] = useState(false);
@@ -23,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      {/*<NavBar />*/}
+      <NavBar />
       <Switch>
         <Route path={urls.home} component={Home} />
         <div className={"row"}>
@@ -40,9 +41,9 @@ const App = () => {
               <Route path={urls.users} component={UserRoute} />
             </Switch>
           </div>
-          {/*<div className={"col-auto"}>*/}
-          {/*   <RightSideBar />*/}
-          {/*</div>*/}
+          <div className={"col-2"}>
+             {/*<RightSideBar />*/}
+          </div>
         </div>
       </Switch>
       <Route exact path={"/"}>

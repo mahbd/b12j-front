@@ -3,6 +3,8 @@ import Input from "../fields/input";
 import Select from "../fields/select";
 import Joi from "joi";
 import CodeEditor from "../fields/codeEditor";
+import AutocompleteSelect from "../fields/autocompleteSelect";
+import TextEditor from "../fields/textEditor";
 
 class BaseForm extends Component {
   state = {
@@ -64,7 +66,15 @@ class BaseForm extends Component {
     );
   }
 
-  renderSelect(name, label, options) {
+  convertOptions(options, valueKey, labelKey) {
+    const newOptions = [];
+    for (let x of options) {
+      newOptions.push({value: x[valueKey], label: x[labelKey]})
+    }
+    return newOptions;
+  }
+
+  renderSelect(name, label, options, valueKey = "value", labelKey = "name") {
     const { data, errors } = this.state;
 
     return (
@@ -72,9 +82,24 @@ class BaseForm extends Component {
         name={name}
         value={data[name]}
         label={label}
-        options={options}
+        options={this.convertOptions(options, valueKey, labelKey)}
         onChange={this.handleChange}
         error={errors[name]}
+      />
+    );
+  }
+
+  renderAutoCompleteSelect(name, label, options, valueKey = "value", labelKey = "name", isMulti = false) {
+    const { data, errors } = this.state;
+    return (
+      <AutocompleteSelect
+        name={name}
+        label={label}
+        options={this.convertOptions(options, valueKey, labelKey)}
+        value={data[name]}
+        error={errors[name]}
+        onChange={this.handleChange}
+        isMulti={isMulti}
       />
     );
   }
@@ -94,13 +119,13 @@ class BaseForm extends Component {
     );
   }
 
-  renderNonFieldError = () => {
+  renderNonFieldError() {
     if (this.state.errors["non_field_errors"]) {
       return <div className="alert alert-danger">{this.state.errors["non_field_errors"]}</div>;
     }
   };
 
-  renderCodeEditor = (name) => {
+  renderCodeEditor(name) {
     const { language, font, theme } = this.state.data;
     return <CodeEditor
       name={name}
@@ -112,6 +137,18 @@ class BaseForm extends Component {
       onChange={this.handleChange}
     />;
   };
+
+  renderTextEditor(name, label) {
+    const { data, errors } = this.state;
+    return (
+      <TextEditor
+        name={name}
+        label={label}
+        onChange={this.handleChange}
+        value={data[name]}
+        error={errors[name]}
+      />);
+  }
 }
 
 export default BaseForm;

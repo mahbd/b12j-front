@@ -3,7 +3,7 @@ import BaseForm from "./baseForms";
 import Joi from "joi";
 import { apiEndpoint, serverUrls, urls } from "../../configuration";
 import { Link } from "react-router-dom";
-import { startLoading, stopLoading } from "../loadingAnimation";
+import { startLoading} from "../loadingAnimation";
 import httpService from "../httpService";
 
 class RegisterForm extends BaseForm {
@@ -24,12 +24,10 @@ class RegisterForm extends BaseForm {
     try {
       startLoading("Registering");
       await httpService.post(`${apiEndpoint}${serverUrls.register}/`, {...this.state.data});
-      stopLoading();
       this.props.history.replace(urls.registerSuccess);
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = {...this.state.errors, ...ex.response.data};
-        stopLoading();
         this.setState({ errors });
       }
     }

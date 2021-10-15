@@ -29,6 +29,8 @@ const mainUrls = {
 };
 
 const subUrls = {
+  addContest: `${mainUrls.contests}/add`,
+  editContest: `${mainUrls.contests}/edit/:id`,
   addProblem: `${mainUrls.problems}/add`,
   editProblem: `${mainUrls.problems}/edit`,
   addTutorial: `${mainUrls.tutorials}/add`,
@@ -47,7 +49,6 @@ export const urls = {
   cf: "/cf",
   cfProblems: "cf/problems",
   cfStatics: "cf/statics",
-  addEditContest: "/restricted/add-edit-contest",
   standing: "/contests/standing",
 
   ...mainUrls,
