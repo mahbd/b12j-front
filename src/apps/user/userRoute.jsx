@@ -8,6 +8,7 @@ import Register from "./register";
 import RegistrationSuccessful from "./registrationSuccessful";
 import ResendActivation from "./resendActivation";
 import ResetPassword from "./resetPassword";
+import EmailConfirmed from "./emailConfirmed";
 
 const UserRoute = () => {
    return (
@@ -16,7 +17,7 @@ const UserRoute = () => {
          <Route path={urls.profile} component={Profile} />
          <Route path={urls.register} component={Register} />
          <Route path={urls.registerSuccess} component={RegistrationSuccessful} />
-         <Route path={`${urls.confirmEmail}/:uid/:token`} component={RegistrationSuccessful} />
+         <Route path={`${urls.confirmEmail}/:uid/:token`} component={EmailConfirmed} />
          <Route path={urls.resendActivationEmail} component={ResendActivation} />
          <Route path={urls.resetPassword} component={ResetPassword} />
          <Route path={urls.userList} component={UserList} />
