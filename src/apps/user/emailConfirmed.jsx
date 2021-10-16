@@ -8,7 +8,7 @@ const EmailConfirmed = ({ match, history }) => {
   useEffect(() => {
     if (uid && token) {
       startLoading("Validating Confirmation URL");
-      httpService.post(`${apiEndpoint}${serverUrls.confirmEmail}`, { uid, token })
+      httpService.post(`${apiEndpoint}${serverUrls.confirmEmail}/`, { uid, token })
         .then(res => {
           console.log(res.status);
           startLoading("Email Confirmed. Redirecting to Login page");
