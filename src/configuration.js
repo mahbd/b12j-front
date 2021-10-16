@@ -58,7 +58,6 @@ export const urls = {
   cfProblems: "cf/problems",
   cfStatics: "cf/statics",
   standing: "/contests/standing",
-
   ...mainUrls,
   ...subUrls,
 };
