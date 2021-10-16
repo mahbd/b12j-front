@@ -41,7 +41,6 @@ const App = () => {
               <Route path={urls.contests} component={ContestRoute} />
               <Route path={urls.problems} component={ProblemRoute} />
               <Route path={urls.others} component={OthersRoute} />
-              {/*<Route path={urls.restricted} component={RestrictedRouter} />*/}
               <Route path={urls.submissions} component={SubmissionRoute} />
               <Route path={urls.tutorials} component={TutorialRoute} />
               <Route path={urls.users} component={UserRoute} />

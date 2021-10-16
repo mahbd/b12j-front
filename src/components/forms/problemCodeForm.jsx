@@ -4,7 +4,7 @@ import Joi from "joi";
 import { renderColX } from "../helperFunctions";
 import { getCurrentUser } from "../authService";
 import { startLoading } from "../loadingAnimation";
-import { apiEndpoint, serverUrls } from "../../configuration";
+import { apiEndpoint, serverUrls, urls } from "../../configuration";
 import httpService from "../httpService";
 
 class ProblemCodeForm extends BaseForm {
@@ -22,6 +22,9 @@ class ProblemCodeForm extends BaseForm {
 
   user = getCurrentUser();
   doSubmit = async () => {
+    if (!this.user) {
+      this.props.history.push(urls.login);
+    }
     const data = {
       code: this.state.data.code,
       language: this.state.data.language,
@@ -41,6 +44,7 @@ class ProblemCodeForm extends BaseForm {
   render() {
     return (
       <form method={"post"} onSubmit={this.handleSubmit}>
+        {!this.user && <div className="alert alert-danger">Please login before writing code</div>}
         {renderColX([
           this.renderSelect("theme", "",
             [{ value: "chrome", name: "White" }, { value: "gob", name: "Dark" }]),
@@ -53,7 +57,6 @@ class ProblemCodeForm extends BaseForm {
               { value: "20px", name: "20px" }])
         ])}
         {this.renderCodeEditor("code")}
-        {!this.user && <div className="alert alert-danger">Please login to submit</div>}
         {this.renderSubmitButton("Submit")}
       </form>
     );

@@ -46,8 +46,8 @@ class RegisterForm extends BaseForm {
           {this.renderInput("email", "Email Address", "email")}
           {this.renderInput("first_name", "First Name")}
           {this.renderInput("last_name", "Last Name")}
-          {this.renderInput("password", "Password")}
-          {this.renderInput("re_password", "Re Type Password")}
+          {this.renderInput("password", "Password", "password")}
+          {this.renderInput("re_password", "Re Type Password", "password")}
           {this.renderSubmitButton("Register", "btn btn-success form-btn")}
           <p>Registered but not activated <Link to={urls.resendActivationEmail}
                                                 className="text-success">resend email</Link></p>

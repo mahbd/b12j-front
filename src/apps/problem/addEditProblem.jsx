@@ -1,11 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 import { SuperContext } from "../../context";
 import ProblemForm from "../../components/forms/problemForm";
+import { getCurrentUser } from "../../components/authService";
+import { urls } from "../../configuration";
 
 const AddEditProblem = ({ match, history }) => {
   const { id } = match.params;
   const { problemActs } = useContext(SuperContext);
   const problem = problemActs.getById(id);
+
+  if (!getCurrentUser()) {
+    history.push(urls.login);
+  }
+
   return (
     <div>
       {!id && !problem && <div>

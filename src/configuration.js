@@ -3,7 +3,7 @@ const getEndpoint = () => {
     return `https://${process.env.BACK_END}`
   } else if (document.domain === "localhost") return "http://127.0.0.1:8000";
   else if (document.domain === "b12j.herokuapp.com" || document.domain === "b12j-api.herokuapp.com") {
-    return document.location.protocol + "//" + "b12j-api.herokuapp.com";
+    return `${document.location.protocol}//$b12j-api.herokuapp.com`;
   } else return "https://api.b12j.ga";
 };
 
@@ -16,7 +16,7 @@ export const wssURL = () => {
     return `wss://${process.env.BACK_END}`
   } else if (document.domain === "localhost") return protocol + "127.0.0.1:8000/ws";
   else if (document.domain === "b12j.herokuapp.com" || document.domain === "b12j-api.herokuapp.com") {
-    return protocol + "b12j-api.herokuapp.com" + "/ws";
+    return `${protocol}b12j-api.herokuapp.com/ws"`;
   }
   return protocol + "api.b12j.ga/ws";
 };

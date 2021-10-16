@@ -24,7 +24,7 @@ class LoginForm extends BaseForm {
       const {access, refresh} = res.data;
       setJwt(access);
       setRefreshToken(refresh);
-      this.props.history.replace("/users/profile");
+      window.location = urls.profile
     } catch (ex) {
       if (ex.response && (ex.response.status === 400 || ex.response.status === 401)) {
         const errors = {...this.state.errors, username: "No active account found with the given credentials"};
@@ -47,7 +47,7 @@ class LoginForm extends BaseForm {
           {/*{this.renderButton("Login With Facebook", "btn btn-primary form-btn")}*/}
           <div className={"blank20"} />
           {this.renderInput("username", "Username")}
-          {this.renderInput("password", "Password")}
+          {this.renderInput("password", "Password", "password")}
           {this.renderSubmitButton("Login", "btn btn-success form-btn")}
           <p>New user <Link to={urls.register} className="text-success">register</Link></p>
           <Link to={urls.resetPassword} className="text-danger">Forgot password?</Link>
