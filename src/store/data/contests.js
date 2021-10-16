@@ -1,6 +1,5 @@
 import { basicActions, basicReducers, receivedWithPagination, standardInitialState } from "../basicReducerTemplate";
 import { createSlice } from "@reduxjs/toolkit";
-import { createSelector } from "reselect";
 
 const name = "contest";
 
@@ -24,22 +23,10 @@ export class contestActions extends basicActions {
       super(slice, store, ws, name);
    }
 
-   getList = (page = 1) => {
-      page = parseInt(page);
-      const contestList = createSelector(
-        () => this.store.getState()[`${name}s`].list[page],
-        contests => this.list(contests)
-      )()
-      if (contestList.length === 0) {
-         this._loadSection(`/contests/?limit=20&offset=${(page - 1) * 20}`, page);
-      }
-      return contestList;
-   };
-
    getAllList = () => {
       let fullList = [];
       for (let i = 1; i <= this.totalPages(); i++) {
-         fullList = [...fullList, ...this.getList(i)];
+         fullList = [...fullList, ...this.getListPage(i)];
       }
       return fullList;
    };

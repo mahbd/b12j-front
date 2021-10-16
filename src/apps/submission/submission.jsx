@@ -20,7 +20,7 @@ const Submission = ({ match }) => {
                      <Link to={`${urls.problems}/${submission.problem}`}>
                         {problemActs.getById(submission.problem, "title")}
                      </Link>,
-                     userActs.fullName(submission.by),
+                     userActs.fullName(submission.user),
                      submission.language,
                      <Verdict verdict={submission.verdict} />,
                   ],

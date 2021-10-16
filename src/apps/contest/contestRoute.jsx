@@ -13,6 +13,7 @@ const ContestRoute = () => {
       <Route path={urls.addContest} component={AddEditContest} />
       <Route path={`${urls.standing}/:contestId`} component={Standing} />
       <Route path={`${urls.contests}/:contestId`} component={Contest} />
+      <Route path={`${urls.contests}/page=:page`} component={ContestList} />
       <Route path={urls.contests} component={ContestList} />
     </Switch>
   );

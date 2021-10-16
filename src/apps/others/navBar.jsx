@@ -61,13 +61,6 @@ const NavBar = () => {
                         </NavLink>
                      )}
                   </li>
-                  {user && user.is_staff && (
-                     <li className={"nav-item"}>
-                        <NavLink to={urls.restricted} className={"nav-link"}>
-                           Restricted
-                        </NavLink>
-                     </li>
-                  )}
                   {user && (
                      <li className={"nav-item"}>
                         <button onClick={logout} className={"btn btn-sm fw-bold btn-outline-danger nav-link"}>

@@ -8,7 +8,7 @@ import { Table } from "../../components/customTags";
 const TutorialList = ({ match }) => {
    const page = parseInt(match.params.page) || 1;
    const { tutorialActs, userActs } = useContext(SuperContext);
-   const tutorials = tutorialActs.getList(page);
+   const tutorials = tutorialActs.getListPage(page);
    const pages = tutorialActs.totalPages();
 
    return (
@@ -26,7 +26,7 @@ export const renderTutorialList = (tutorials, userActs) => {
    for (let tutorial of tutorials) {
       data.push([
          <Link to={`${urls.tutorials}/${tutorial.id}`}>{tutorial.title}</Link>,
-         userActs.fullName(tutorial.by),
+         userActs.fullName(tutorial.user),
       ]);
    }
    return <Table headers={["Name", "Writer"]} body={data} />;

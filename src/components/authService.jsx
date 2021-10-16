@@ -51,6 +51,7 @@ export const refreshAccessToken = () => {
   httpService.post(`${apiEndpoint}${serverUrls.refreshToken}/`, { refresh: getRefreshToken() })
     .then(response => {
       localStorage.setItem(keys.ACCESS, response.data.access);
+      window.location.reload();
     }).catch(error => {
       logout(urls.login);
     alert(error.response.data.errors);
@@ -59,9 +60,6 @@ export const refreshAccessToken = () => {
 
 export const verifyUpdateAccessToken = () => {
   httpService.post(`${apiEndpoint}${serverUrls.verifyToken}/`, {token: getJwt()})
-    .then(response => {
-      console.log("User is logged in", response.status);
-    })
     .catch(error => {
       console.log(error);
       refreshAccessToken();

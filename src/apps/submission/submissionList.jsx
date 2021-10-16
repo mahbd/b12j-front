@@ -7,7 +7,7 @@ import { Table, Verdict } from "../../components/customTags";
 const SubmissionList = ({ match }) => {
    const page = parseInt(match.params.page) || 1;
    const { submissionActs, userActs } = useContext(SuperContext);
-   const submissionList = submissionActs.getList(page);
+   const submissionList = submissionActs.getListPage(page);
 
    const pages = submissionActs.totalPages();
 
@@ -25,7 +25,7 @@ export const renderSubmissionList = (submissionList, userActs) => {
    const data = [];
    for (let submission of submissionList) {
       data.push([
-         userActs.fullName(submission.by),
+         userActs.fullName(submission.user),
          submission.problem_title,
          <Link to={`/submissions/${submission.id}`}><Verdict verdict={submission.verdict} /></Link>,
       ]);

@@ -31,11 +31,10 @@ const TextEditor = ({ name, label, onChange, value, error }) => {
   const { quill, quillRef } = useQuill({ modules, formats: {} });
 
   useEffect(() => {
-    if (quill && value !== quill.container.firstChild.innerHTML) {
+    if (quill && value && value !== quill.container.firstChild.innerHTML) {
       quill.clipboard.dangerouslyPasteHTML(value);
     }
-    // eslint-disable-next-line
-  }, [value]);
+  }, [value, quill]);
 
   useEffect(() => {
     if (quill) {

@@ -2,9 +2,7 @@ import React from "react";
 import BaseForm from "./baseForms";
 import { renderColX } from "../helperFunctions";
 import Joi from "joi";
-import http from "../httpService";
-import { apiEndpoint, urls } from "../../configuration";
-import { startLoading} from "../loadingAnimation";
+import { serverUrls, urls } from "../../configuration";
 
 class ContestForm extends BaseForm {
   state = {
@@ -23,30 +21,12 @@ class ContestForm extends BaseForm {
 
   componentDidMount() {
     if (this.props.contest) {
-      this.setState({ ...this.state.data, ...this.props.contest });
+      this.setState({data: { ...this.state.data, ...this.props.contest }});
     }
   }
 
-
-  doSubmit = async () => {
-    const { data } = this.state;
-    const {history} = this.props;
-    try {
-      if (data.id) {
-        startLoading("Saving contest")
-        await http.put(`${apiEndpoint}${urls.contests}/${data.id}/`, data);
-        history.push(`${urls.contests}/${data.id}`);
-      } else {
-        startLoading("Creating new contest")
-        const res = await http.post(`${apiEndpoint}${urls.contests}/`, data);
-        history.push(`${urls.contests}/${res.data.id}`);
-      }
-    } catch (ex) {
-      if (ex.response && ex.response.status === 400) {
-        const errors = {...this.state.errors, ...ex.response.data};
-        this.setState({ errors });
-      }
-    }
+  doSubmit = () => {
+    this.doSubmitHelper(serverUrls.contests, urls.contests, 'Saving Contest')
   };
 
   render() {

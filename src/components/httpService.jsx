@@ -5,7 +5,9 @@ import { startLoading, stopLoading } from "./loadingAnimation";
 export function getJwt() {
   return localStorage.getItem(keys.ACCESS);
 }
-axios.defaults.headers.common["authorization"] = "Bearer " + getJwt();
+if (getJwt()) {
+   axios.defaults.headers.common["authorization"] = "Bearer " + getJwt();
+}
 
 axios.interceptors.response.use(res => {
    stopLoading();

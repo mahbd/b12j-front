@@ -12,11 +12,11 @@ const Problem = ({ match, history }) => {
    const { problemId } = match.params;
    const problem = problemActs.getById(problemId);
 
-   const userId = getCurrentUser() && getCurrentUser().id;
+   const userId = getCurrentUser() && getCurrentUser().user_id;
    return (
       problem && (
          <div className="container">
-            {userId && problem.by === userId && (
+            {userId && problem.user === userId && (
                <div>
                   <Link to={`${urls.editProblem}/${problemId}`} className={"btn btn-warning"}>
                      Edit
@@ -31,7 +31,7 @@ const Problem = ({ match, history }) => {
             </div>
             <div className={"text-center pt-5"}>
                <h1 className={"display-4 fw-bold text-secondary rounded-3"}>{problem.title}</h1>
-               <p> Writer: {userActs.fullName(problem.by)} </p>
+               <p> Writer: {userActs.fullName(problem.user)} </p>
                <p>Time Limit: {problem.memory_limit} MB</p>
                <p>Memory Limit: {problem.time_limit} second(s)</p>
             </div>
@@ -45,6 +45,7 @@ const Problem = ({ match, history }) => {
                <b className={"h5"}>Output Terms</b>
                <FormattedHtml text={problem.output_terms} /> <br />
             </div>
+           <b className={"h5"}>Examples</b>
             <TestCases test_cases={problem.test_cases} />
             <ProblemCodeForm problem={problem} history={history} />
          </div>
@@ -57,7 +58,7 @@ export default Problem;
 const TestCases = ({ test_cases }) => {
    const data = [];
    for (let test of test_cases) {
-      data.push([<pre>{test.input}</pre>, <pre>{test.output}</pre>]);
+      data.push([<pre>{test.inputs}</pre>, <pre>{test.output}</pre>]);
    }
    return <Table headers={["Input", "Output"]} body={data} />;
 };

@@ -7,8 +7,8 @@ import { Table } from "../../components/customTags";
 
 const LeftSideBar = () => {
    const { contestActs, tutorialActs } = useContext(SuperContext);
-   let tutorials = tutorialActs.getList();
-   let contestList = contestActs.getList();
+   let tutorials = tutorialActs.getListPage(1);
+   let contestList = contestActs.getListPage(1);
    contestList = contestList.slice(0, Math.min(contestList.length, 5));
    tutorials = tutorials.slice(0, Math.min(tutorials.length, 5));
    let contestData = [],
@@ -17,14 +17,14 @@ const LeftSideBar = () => {
    for (let contest of contestList) {
       contestData.push([
          <Link to={`${urls.contests}/${contest.id}`} className={"white-link"}>
-            {contest.title}
+            {`${contest.title.slice(0, 25)}${contest.title.length > 25 ? "...": ""}`}
          </Link>,
       ]);
    }
    for (let tutorial of tutorials) {
       tutorialData.push([
          <Link className={"white-link"} to={`/tutorials/${tutorial.id}`}>
-            {tutorial.title}
+            {tutorial.title.slice(0, 15)}
          </Link>,
       ]);
    }

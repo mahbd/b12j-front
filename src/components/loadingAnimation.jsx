@@ -11,7 +11,9 @@ export const startLoading = (text = null) => {
   const loading = document.getElementById("loading-animation");
   if (text) {
     const t = document.getElementById("loading-text");
-    t.innerText = text;
+    if (t) {
+      t.innerText = text;
+    }
   }
   loading.style.display = "block";
 };

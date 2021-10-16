@@ -10,6 +10,11 @@ import Footer from "./apps/others/footer";
 import ContestRoute from "./apps/contest/contestRoute";
 import ProblemRoute from "./apps/problem/problemRoute";
 import NavBar from "./apps/others/navBar";
+import SubmissionRoute from "./apps/submission/submissionRoute";
+import OthersRoute from "./apps/others/othersRoute";
+import LeftSideBar from "./apps/others/leftSideBar";
+import RightSideBar from "./apps/others/rightSideBar";
+import TutorialRoute from "./apps/tutorial/tutorialRoute";
 
 const App = () => {
   const [refresh, setRefresh] = useState(false);
@@ -28,21 +33,22 @@ const App = () => {
       <Switch>
         <Route path={urls.home} component={Home} />
         <div className={"row"}>
-          <div className={"col-2"}>
-            {/*<LeftSideBar />*/}
+          <div className={" d-none d-lg-block float-start m-2"} style={{width: "240px"}}>
+            <LeftSideBar />
           </div>
-          <div className={"col-10"}>
+          <div className={"col"}>
             <Switch>
               <Route path={urls.contests} component={ContestRoute} />
               <Route path={urls.problems} component={ProblemRoute} />
+              <Route path={urls.others} component={OthersRoute} />
               {/*<Route path={urls.restricted} component={RestrictedRouter} />*/}
-              {/*<Route path={urls.submissions} component={SubmissionRoute} />*/}
-              {/*<Route path={urls.tutorials} component={TutorialRoute} />*/}
+              <Route path={urls.submissions} component={SubmissionRoute} />
+              <Route path={urls.tutorials} component={TutorialRoute} />
               <Route path={urls.users} component={UserRoute} />
             </Switch>
           </div>
-          <div className={"col-2"}>
-             {/*<RightSideBar />*/}
+          <div className={"col-2 d-none d-xxl-block float-end"}>
+             <RightSideBar />
           </div>
         </div>
       </Switch>

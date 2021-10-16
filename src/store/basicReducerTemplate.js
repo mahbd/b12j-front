@@ -1,8 +1,9 @@
 import { apiCallBegan } from "./api";
-import { urls } from "../configuration";
+import { serverUrls, urls } from "../configuration";
 import { getPageNumberFromLink } from "../apps/others/functions";
 import { getJwt } from "../components/authService";
 import { createSelector } from "reselect";
+import { startLoading } from "../components/loadingAnimation";
 
 export const standardInitialState = () => {
    return {
@@ -127,6 +128,7 @@ export class basicActions {
    };
 
    _loadSection = (url, section) => {
+      setTimeout(() => startLoading(`Loading ${this.name}s`), 50);
       if (this.store.getState()[`${this.name}s`].fetched[section] || this.pending[section]) return;
       if (section < 1) {
          alert("Wrong page");
@@ -148,6 +150,7 @@ export class basicActions {
    };
 
    _loadById = (id) => {
+      setTimeout(() => startLoading(`Loading ${this.name} ID: ${id}`), 50);
       if (!this.pendingId[id]) {
          this.pendingId[id] = Date.now();
          const toSend = { method: "GET", target: this.name, id: id, id_token: getJwt() };
@@ -168,18 +171,17 @@ export class basicActions {
       this.start();
    };
 
-   list1 = createSelector(
-      (objList) => objList,
-      (dict) => this.store.getState()[`${this.name}s`].dict,
-      (objList, dict) => {
-         if (!objList) return [];
-         let data = [];
-         for (let i = 0; i < objList.length; i++) {
-            data.push(dict[objList[i]]);
-         }
-         return data;
-      }
-   );
+   getListPage = (page = 1) => {
+    page = parseInt(page);
+    const itemList = createSelector(
+      () => this.store.getState()[`${this.name}s`].list[page],
+      items => this.list(items)
+    )();
+    if (itemList.length === 0) {
+      this._loadSection(`${serverUrls[`${this.name}s`]}/?limit=20&offset=${(page - 1) * 20}`, page);
+    }
+    return itemList;
+  };
 
    list = (objList) => {
       if (!objList) return [];

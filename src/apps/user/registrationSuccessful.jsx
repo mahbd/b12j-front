@@ -1,6 +1,11 @@
 import React from "react";
+import { getCurrentUser } from "../../components/authService";
+import { urls } from "../../configuration";
 
-const RegistrationSuccessful = () => {
+const RegistrationSuccessful = ({history}) => {
+  if (getCurrentUser()) {
+    history.replace(urls.profile);
+  }
   return (
     <div className={"container"}>
       <div className="alert alert-success">

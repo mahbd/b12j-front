@@ -40,7 +40,7 @@ class ProblemCodeForm extends BaseForm {
 
   render() {
     return (
-      <div>
+      <form method={"post"} onSubmit={this.handleSubmit}>
         {renderColX([
           this.renderSelect("theme", "",
             [{ value: "chrome", name: "White" }, { value: "gob", name: "Dark" }]),
@@ -55,7 +55,7 @@ class ProblemCodeForm extends BaseForm {
         {this.renderCodeEditor("code")}
         {!this.user && <div className="alert alert-danger">Please login to submit</div>}
         {this.renderSubmitButton("Submit")}
-      </div>
+      </form>
     );
   }
 }

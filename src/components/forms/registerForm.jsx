@@ -38,8 +38,8 @@ class RegisterForm extends BaseForm {
     return (
       <div className={"container"}>
         <form className={"one-form"} onSubmit={this.handleSubmit} method="post">
-          {this.renderButton("Register With Google", "btn btn-info form-btn")}
-          {this.renderButton("Register With Facebook", "btn btn-primary form-btn")}
+          {/*{this.renderButton("Register With Google", "btn btn-info form-btn")}*/}
+          {/*{this.renderButton("Register With Facebook", "btn btn-primary form-btn")}*/}
           <div className={"blank20"} />
           {this.renderNonFieldError()}
           {this.renderInput("username", "Username")}

@@ -7,9 +7,15 @@ import ContestCard from "../../components/cards/contestCard";
 
 dayjs.extend(isSameOrBefore);
 
-const ContestList = () => {
+const ContestList = ({match}) => {
+  const {page} = match.params;
   const { contestActs, userActs } = useContext(SuperContext);
-  const contestList = contestActs.getList();
+  let contestList = [];
+  if (page) {
+    contestList = contestActs.getListPage();
+  } else {
+    contestList = contestActs.getListPage(page);
+  }
   let ended = [],
     upcoming = [];
   for (let contest of contestList) {

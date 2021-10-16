@@ -5,6 +5,10 @@ import Joi from "joi";
 import CodeEditor from "../fields/codeEditor";
 import AutocompleteSelect from "../fields/autocompleteSelect";
 import TextEditor from "../fields/textEditor";
+import httpService from "../httpService";
+import { startLoading } from "../loadingAnimation";
+import { apiEndpoint } from "../../configuration";
+import TextArea from "../fields/textArea";
 
 class BaseForm extends Component {
   state = {
@@ -13,7 +17,7 @@ class BaseForm extends Component {
   };
 
   validate = () => {
-    const { error } = Joi.object(this.schema).validate(this.state.data, { abortEarly: false });
+    const { error } = Joi.object(this.schema).validate(this.state.data, { abortEarly: false, allowUnknown: true });
     if (!error) return null;
 
     const errors = {};
@@ -26,6 +30,32 @@ class BaseForm extends Component {
     const schema = { [name]: this.schema[name] };
     const { error } = Joi.object(schema).validate(obj);
     return error ? error.details[0].message : null;
+  };
+
+  doSubmitHelper = async (url, redirect, lt) => {
+    const { history } = this.props;
+    const { data } = this.state;
+    try {
+      if (lt) {
+        startLoading(lt);
+      }
+      if (data.id) {
+        await httpService.put(`${apiEndpoint}${url}/${data.id}/`, data);
+        if (redirect) {
+          window.location = `${redirect}/${data.id}`
+        }
+      } else {
+        const res = await httpService.post(apiEndpoint + url + "/", data);
+        if (redirect) {
+          history.push(`${redirect}/${res.data.id}`);
+        }
+      }
+    } catch (ex) {
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors, ...ex.response.data };
+        this.setState({ errors });
+      }
+    }
   };
 
   handleSubmit = e => {
@@ -52,7 +82,7 @@ class BaseForm extends Component {
 
   renderButton(label, cls = "btn btn-primary", extra = {}) {
     return (
-      <button className={cls} {...extra}>
+      <button className={cls} type={"button"} {...extra}>
         {label}
       </button>
     );
@@ -69,7 +99,7 @@ class BaseForm extends Component {
   convertOptions(options, valueKey, labelKey) {
     const newOptions = [];
     for (let x of options) {
-      newOptions.push({value: x[valueKey], label: x[labelKey]})
+      newOptions.push({ value: x[valueKey], label: x[labelKey] });
     }
     return newOptions;
   }
@@ -119,26 +149,42 @@ class BaseForm extends Component {
     );
   }
 
+  renderTextArea(name, label) {
+    const { data, errors } = this.state;
+
+    return (
+      <TextArea
+        name={name}
+        value={data[name]}
+        label={label}
+        onChange={this.handleChange}
+        error={errors[name]}
+      />
+    );
+  }
+
   renderNonFieldError() {
     if (this.state.errors["non_field_errors"]) {
       return <div className="alert alert-danger">{this.state.errors["non_field_errors"]}</div>;
     }
   };
 
-  renderCodeEditor(name) {
-    const { language, font, theme } = this.state.data;
+  renderCodeEditor(name, label, language_code="language") {
+    const { font, theme } = this.state.data;
     return <CodeEditor
       name={name}
+      label={label}
       value={this.state.data[name]}
       error={this.state.errors[name]}
-      mode={language}
-      fontSize={font}
-      theme={theme}
+      mode={this.state.data[language_code] || "python"}
+      fontSize={font || "15px"}
+      theme={theme || "chrome"}
       onChange={this.handleChange}
     />;
   };
 
   renderTextEditor(name, label) {
+
     const { data, errors } = this.state;
     return (
       <TextEditor

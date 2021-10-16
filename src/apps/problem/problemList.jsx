@@ -8,7 +8,7 @@ import { Table } from "../../components/customTags";
 const ProblemList = ({ match }) => {
    const page = parseInt(match.params.page) || 1;
    const { problemActs } = useContext(SuperContext);
-   let problems = problemActs.getList(page);
+   let problems = problemActs.getListPage(page);
    const pages = problemActs.totalPages();
 
    return (

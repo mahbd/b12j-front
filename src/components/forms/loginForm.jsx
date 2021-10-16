@@ -33,12 +33,18 @@ class LoginForm extends BaseForm {
     }
   };
 
+  // requestGoogleLogin = () => {
+  //
+  // }
+
   render() {
     return (
       <div className="container">
         <form className={"one-form"} onSubmit={this.handleSubmit} method="post">
-          {this.renderButton("Login With Google", "btn btn-info form-btn")}
-          {this.renderButton("Login With Facebook", "btn btn-primary form-btn")}
+          {/*{this.renderButton("Login With Google", "btn btn-info form-btn", {*/}
+          {/*  onClick: this.requestGoogleLogin*/}
+          {/*})}*/}
+          {/*{this.renderButton("Login With Facebook", "btn btn-primary form-btn")}*/}
           <div className={"blank20"} />
           {this.renderInput("username", "Username")}
           {this.renderInput("password", "Password")}

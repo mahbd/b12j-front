@@ -16,6 +16,7 @@ import { userActions } from "./store/data/users";
 import React, { useEffect } from "react";
 
 import "./index.css";
+import "./quill.css"
 import LoadingAnimation from "./components/loadingAnimation";
 import App from "./app";
 
@@ -58,8 +59,8 @@ const ParentApp = () => {
     <SuperContext.Provider value={data}>
       <div>
         <LoadingAnimation />
-        <App />
         <WebSocketReceive />
+        <App />
       </div>
     </SuperContext.Provider>
   );

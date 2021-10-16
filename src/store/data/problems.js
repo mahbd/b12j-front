@@ -7,7 +7,6 @@ import {
 } from "../basicReducerTemplate";
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../api";
-import { createSelector } from "reselect";
 
 const name = "problem";
 
@@ -49,22 +48,10 @@ export class problemActions extends basicActions {
     this.pendingContests = {};
   }
 
-  getList = (page = 1) => {
-    page = parseInt(page);
-    const problemList = createSelector(
-      () => this.store.getState()[`${name}s`].list[page],
-      problems => this.list(problems)
-    )();
-    if (problemList.length === 0) {
-      this._loadSection(`/problems/?limit=20&offset=${(page - 1) * 20}`, page);
-    }
-    return problemList;
-  };
-
   getAllList = () => {
     let fullList = [];
     for (let i = 1; i <= (this.totalPages() || 1); i++) {
-      fullList = [...fullList, ...this.getList(i)];
+      fullList = [...fullList, ...this.getListPage(i)];
     }
     return fullList;
   };
