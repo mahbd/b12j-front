@@ -14,8 +14,7 @@ export const startLoading = (text = null) => {
     if (t) {
       t.innerText = text;
     }
-  }
-  loading.style.display = "block";
+  } if (loading) loading.style.display = "block";
 };
 
 export const stopLoading = () => {

@@ -4,11 +4,15 @@ import ProblemList from "./problemList";
 import { urls } from "../../configuration";
 import Problem from "./problem";
 import AddEditProblem from "./addEditProblem";
+import AddTestCase from "./addTestCase";
+import TestCaseList from "./testCaseList";
 
 const ProblemRoute = () => {
    return (
       <Switch>
          <Route path={`${urls.problems}/page=:page`} component={ProblemList} />
+         <Route path={`${urls.addTestCases}/:problemId`} component={AddTestCase} />
+         <Route path={`${urls.testCases}/:problemId`} component={TestCaseList} />
          <Route path={`${urls.addProblem}`} component={AddEditProblem} />
          <Route path={`${urls.editProblem}/:id`} component={AddEditProblem} />
          <Route path={`${urls.problems}/:problemId`} component={Problem} />

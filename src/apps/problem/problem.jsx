@@ -16,19 +16,25 @@ const Problem = ({ match, history }) => {
   return (
     problem && (
       <div className="container">
-        {userId && problem.user === userId && (
-          <div>
-            <Link to={`${urls.editProblem}/${problemId}`} className={"btn btn-warning"}>
-              Edit
-            </Link>
-          </div>
-        )}
-
         <div className="float-end">
           <a className={"white-link"} href={"#codeEditor"}>
             Code Editor
           </a>
         </div>
+
+        {userId && problem.user === userId && (
+          <div>
+            <Link to={`${urls.editProblem}/${problemId}`} className={"btn btn-warning"}>
+              Edit
+            </Link>
+            <Link to={`${urls.addTestCases}/${problemId}`} className={"btn btn-warning"}>
+              Add Test Case
+            </Link>
+            <Link to={`${urls.testCases}/${problemId}`} className={"btn btn-warning"}>
+              Test Case List
+            </Link>
+          </div>
+        )}
         <div className={"text-center pt-5"}>
           <h1 className={"display-4 fw-bold text-secondary rounded-3"}>{problem.title}</h1>
           <p> Writer: {userActs.fullName(problem.user)} </p>

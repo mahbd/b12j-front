@@ -49,7 +49,8 @@ const subUrls = {
   registerSuccess: `${mainUrls.users}/register-success`,
   resetPassword: `${mainUrls.users}/reset-password`,
   resendActivationEmail: `${mainUrls.users}/resend-email`,
-  test_cases: `${mainUrls.problems}/test_cases`,
+  testCases: `${mainUrls.problems}/test_cases`,
+  addTestCases: `${mainUrls.problems}/test_cases/add`,
   userList: `${mainUrls.users}/users`,
 };
 

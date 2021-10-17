@@ -7,7 +7,6 @@ const WebSocketReceive = () => {
    const { ws, contestActs, problemActs, submissionActs, userActs, tutorialActs } = useContext(SuperContext);
    ws.addEventListener("message", (e) => {
       const data = JSON.parse(e.data).data;
-      stopLoading()
       if (data.target === "contest") contest(contestActs, data);
       if (data.target === "problem") problem(problemActs, data);
       if (data.target === "submission") submission(submissionActs, data);
@@ -20,22 +19,27 @@ const WebSocketReceive = () => {
 };
 
 const contest = (contestActs, data) => {
+   stopLoading()
    contestActs.update(data);
 };
 
 const problem = (problemActs, data) => {
+   stopLoading()
    problemActs.update(data);
 };
 
 const submission = (submissionActs, data) => {
+   stopLoading()
    submissionActs.update(data);
 };
 
 const user = (userActs, data) => {
+   stopLoading()
    userActs.update(data);
 };
 
 const tutorial = (tutorialActs, data) => {
+   stopLoading()
    tutorialActs.update(data);
 };
 

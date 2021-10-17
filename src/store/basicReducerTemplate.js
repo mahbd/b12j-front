@@ -11,7 +11,6 @@ export const standardInitialState = () => {
       dict: {},
       fetched: {},
       total: null,
-      loading: false,
    };
 };
 
@@ -20,7 +19,6 @@ export const basicReducers = (name) => {
       [`${name}Added`]: (state, action) => {
          state.list.push(action.payload.id);
          state.dict[action.payload.id] = action.payload;
-         state.loading = false;
       },
 
       [`${name}Updated`]: (state, action) => {
@@ -29,7 +27,6 @@ export const basicReducers = (name) => {
             state.dict[action.payload.id] = action.payload;
             state.list.push(action.payload.id);
          }
-         state.loading = false;
       },
 
       [`${name}sReceived`]: (state, action) => {
@@ -41,22 +38,18 @@ export const basicReducers = (name) => {
                state.list.push(data[i].id);
             }
          }
-         state.loading = false;
       },
 
       [`${name}Requested`]: (state) => {
-         state.loading = true;
       },
 
       [`${name}RequestFailed`]: (state) => {
-         state.loading = false;
       },
    };
 };
 
 export const receivedWithPagination = (state, action) => {
    let page;
-   state.loading = false;
    const nextUrl = action.payload.next;
    if (!nextUrl) page = Math.ceil(action.payload.count / 20);
    else page = getPageNumberFromLink(nextUrl);
@@ -76,7 +69,6 @@ export const receivedDiscussions = (state, action, name) => {
    let pid = undefined;
    if (result) pid = action.payload.results[0][name];
 
-   state.loading = false;
    if (pid) {
       pid = parseInt(pid);
       state.fetched[pid] = Date.now();
@@ -97,7 +89,6 @@ export const updatedWithPagination = (state, action) => {
       if (!state.list[1]) state.list[1] = [];
       state.list[1] = [action.payload.id, ...state.list[1]];
    }
-   state.loading = false;
 };
 
 export class basicActions {
@@ -128,7 +119,7 @@ export class basicActions {
    };
 
    _loadSection = (url, section) => {
-      setTimeout(() => startLoading(`Loading ${this.name}s`), 50);
+      setTimeout(() => startLoading(`Loading ${this.name}s`), 1);
       if (this.store.getState()[`${this.name}s`].fetched[section] || this.pending[section]) return;
       if (section < 1) {
          alert("Wrong page");
@@ -150,7 +141,7 @@ export class basicActions {
    };
 
    _loadById = (id) => {
-      setTimeout(() => startLoading(`Loading ${this.name} ID: ${id}`), 50);
+      startLoading(`Loading ${this.name} ID: ${id}`)
       if (!this.pendingId[id]) {
          this.pendingId[id] = Date.now();
          const toSend = { method: "GET", target: this.name, id: id, id_token: getJwt() };

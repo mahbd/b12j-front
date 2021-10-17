@@ -12,11 +12,15 @@ class TestCaseForm extends BaseForm {
     inputs: Joi.string().required()
   };
 
-  doSubmit = () => {
-    this.setState({data: {...this.state.data, problem: this.props.problem.id}});
-    this.doSubmitHelper(serverUrls.test_cases, undefined, "Adding Test Case");
-    window.location = `${urls.test_cases}/${this.props.problem.id}`
+  componentDidMount() {
+    this.setState({ data: { ...this.state.data, problem: this.props.problem.id } });
   }
+
+
+  doSubmit = () => {
+    this.doSubmitHelper(serverUrls.test_cases, undefined, "Adding Test Case");
+    window.location = `${urls.testCases}/${this.props.problem.id}`
+  };
 
   render() {
     return (

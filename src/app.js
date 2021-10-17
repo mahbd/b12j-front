@@ -33,7 +33,7 @@ const App = () => {
       <Switch>
         <Route path={urls.home} component={Home} />
         <div className={"row"}>
-          <div className={" d-none d-lg-block float-start m-2"} style={{width: "240px"}}>
+          <div className={" d-none d-lg-block float-start m-2"} style={{ width: "240px" }}>
             <LeftSideBar />
           </div>
           <div className={"col"}>
@@ -47,7 +47,7 @@ const App = () => {
             </Switch>
           </div>
           <div className={"col-2 d-none d-xxl-block float-end"}>
-             <RightSideBar />
+            <RightSideBar />
           </div>
         </div>
       </Switch>
