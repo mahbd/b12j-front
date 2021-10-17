@@ -15,14 +15,15 @@ class ProblemForm extends BaseForm {
     input_terms: Joi.string().required().min(50),
     output_terms: Joi.string().required().min(50),
     correct_code: Joi.string().required().min(50),
-    correct_lang: Joi.string().required(),
+    correct_lang: Joi.string().pattern(RegExp("^((?!bits/stdc).)*$")).required().messages(
+      { "string.pattern.base": "Can not be bits/stdc++.h header is not supported" }),
     memory_limit: Joi.number(),
     time_limit: Joi.number(),
     difficulty: Joi.number().min(500).max(1500),
     example_number: Joi.number().min(1).max(3),
     notice: Joi.string(),
     font: Joi.string(),
-    theme: Joi.string(),
+    theme: Joi.string()
   };
 
   componentDidMount() {

@@ -13,7 +13,6 @@ const AddEditContest = ({ history, match }) => {
   if (!getCurrentUser()) {
     history.push(urls.login);
   }
-
   return (
     <div>
       {!contest && <div>

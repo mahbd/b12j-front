@@ -24,9 +24,9 @@ const Problem = ({ match, history }) => {
 
         {userId && problem.user === userId && (
           <div>
-            <Link to={`${urls.editProblem}/${problemId}`} className={"btn btn-warning"}>
+            <a href={`${urls.editProblem}/${problemId}`} className={"btn btn-warning"}>
               Edit
-            </Link>
+            </a>
             <Link to={`${urls.addTestCases}/${problemId}`} className={"btn btn-warning"}>
               Add Test Case
             </Link>

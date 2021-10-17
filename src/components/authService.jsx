@@ -53,15 +53,17 @@ export const refreshAccessToken = () => {
       localStorage.setItem(keys.ACCESS, response.data.access);
       window.location.reload();
     }).catch(error => {
-      logout(urls.login);
-    alert(error.response.data.errors);
+      if (error.response && error.response.status === 401) {
+        logout(urls.login);
+      }
   });
 };
 
 export const verifyUpdateAccessToken = () => {
-  httpService.post(`${apiEndpoint}${serverUrls.verifyToken}/`, {token: getJwt()})
+  httpService.post(`${apiEndpoint}${serverUrls.verifyToken}/`, { token: getJwt() })
     .catch(error => {
-      console.log(error);
-      refreshAccessToken();
-    })
-}
+      if (error.response && error.response.status === 401) {
+        refreshAccessToken();
+      }
+    });
+};

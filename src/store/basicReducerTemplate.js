@@ -197,8 +197,12 @@ export class basicActions {
       this.store.dispatch({ type: this.updated.type, payload: data });
    };
 
-   getById = (id, key = null) => {
+   getById = (id, key = null, force=false) => {
       const dict = this.store.getState()[`${this.name}s`].dict;
+      if (force && id) {
+         this._loadById(id);
+         return null;
+      }
       if (key) {
          if (dict[id]) return dict[id][key];
          else if (id) this._loadById(id);
