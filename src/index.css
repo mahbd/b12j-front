@@ -46,8 +46,11 @@ html, body {
     display: none;
 }
 
-.display-hidden {
-    display: none;
+.bi-heading4 {
+    background: #000000;
+    color: #FFFFFF;
+    border-radius: 0.3rem !important;
+    font-size: 20px;
 }
 
 @keyframes spin {
@@ -59,11 +62,20 @@ html, body {
     }
 }
 
-.vertical-line {
-  border-left: 6px solid green;
-  height: 100%;
+.vlr {
+    border-right: 4px solid black;
+    height: 100%;
 }
 
-p {
+.vll {
+    border-left: 4px solid black;
+    height: 100%;
+}
+
+.width-100 {
+    width: 330px;
+}
+
+.ql-container {
     font-size: 16px;
 }

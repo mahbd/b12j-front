@@ -1,25 +1,112 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import http from "../../components/httpService";
+import { Link } from "react-router-dom";
+import { apiEndpoint, urls } from "../../configuration";
+import { SuperContext } from "../../context";
+import { css } from "../../main_css";
+import { renderProblemList } from "../problem/problemList";
+import { renderSubmissionList } from "../submission/submissionList";
+import { renderTutorialList } from "../tutorial/tutorialList";
+import { extractDate } from "../others/functions";
+import { renderColX } from "../../components/helperFunctions";
+import { Table } from "../../components/customTags";
 import { getCurrentUser } from "../../components/authService";
-import { Link, useHistory } from "react-router-dom";
-import { urls } from "../../configuration";
 
-const Profile = () => {
-  const currentUser = getCurrentUser();
-  const history = useHistory();
-  if (!currentUser) {
-    history.replace(urls.login);
-  }
-  return (
-    <div style={{width: "100%"}}>
-      <h1 className={"text-center"}>Welcome {currentUser.name}</h1>
-      <h2>Profile Design Is Not Complete.</h2>
-      <h2>It will be updated soon .....</h2>
-      <Link to={urls.addContest} className={"btn btn-success"}>Add Contest</Link>
-      <Link to={urls.addProblem} className={"btn btn-success"}>Add Problem</Link>
-      <Link to={urls.addTutorial} className={"btn btn-success"}>Add Tutorial</Link>
+const Profile = ({history}) => {
+   const { userActs } = useContext(SuperContext);
+   const [userProbList, setUserProbList] = useState([]);
+   const [userTutorialList, setUserTutorialList] = useState([]);
+   const [userSubmissionList, setUserSubmissionList] = useState([]);
+   const [userContest, setUserContest] = useState([]);
+   const [testProblem, setTestProblem] = useState([]);
+   const [unsolvedProblem, setUnsolvedProblem] = useState([]);
 
-    </div>
-  );
+   const user = getCurrentUser();
+
+   if (!user) history.push(urls.login)
+
+   useEffect(() => {
+      const apiCall = async () => {
+         const userProblemData = await http.get(`${apiEndpoint}/problems/?user_problems=true`);
+         const userTutorialData = await http.get(`${apiEndpoint}/tutorials/?user_tutorials=true`);
+         const userSubmissionData = await http.get(`${apiEndpoint}/submissions/?user_id=${user.user_id}`);
+         const userContestData = await http.get(`${apiEndpoint}/contests/?user_contests=true`);
+         const testProblemData = await http.get(`${apiEndpoint}/problems/?test_problems=true`);
+         const unsolvedProblemData = await http.get(`${apiEndpoint}/problems/?unsolved_problems=true`);
+         setUnsolvedProblem(unsolvedProblemData.data.results);
+         setUserTutorialList(userTutorialData.data.results);
+         setUserProbList(userProblemData.data.results);
+         setUserSubmissionList(userSubmissionData.data.results);
+         setUserContest(userContestData.data.results);
+         setTestProblem(testProblemData.data.results);
+         console.log(unsolvedProblemData)
+      };
+      apiCall();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, []);
+
+   const contestData = [];
+   for (let contest of userContest) {
+      contestData.push([
+         <Link to={`${urls.contests}/${contest.id}`}>{contest.title}</Link>,
+         extractDate(contest.date),
+         <a href={`${urls.editContest}/${contest.id}`} className="btn-sm btn-warning me-2">
+            Edit
+         </a>,
+      ]);
+   }
+
+   return (
+      <div>
+         <div className="row">
+            <div className="col-auto p-2">
+               <Link to={urls.addProblem} className="btn btn-outline-success">
+                  Add new problem
+               </Link>
+            </div>
+            <div className="col-auto p-2">
+               <a href={urls.addTutorial} className="btn btn-outline-success">
+                  Add new tutorial
+               </a>
+            </div>
+         </div>
+
+         <br />
+         <br />
+         <br />
+         {renderColX([
+            <div className="col-sm">
+               <div className={css.heading4}>Last 10 Contests set by you</div>
+               <Table headers={["Title", "Date", "Buttons"]} body={contestData} />
+            </div>,
+            <div>
+               <div className={css.heading4}>Testable problem for you</div>
+               {renderProblemList(testProblem, urls.problems)}
+            </div>,
+         ])}
+
+         {renderColX([
+            <div>
+               <div className={css.heading4}>Last 10 Problem set by you</div>
+               {renderProblemList(userProbList, urls.problems)}
+            </div>,
+            <div className="col-sm">
+               <div className={css.heading4}>Last 10 tutorials by you</div>
+               {renderTutorialList(userTutorialList, userActs)}
+            </div>,
+         ])}
+         {renderColX([
+            <div>
+               <div className={css.heading4}>Unsolved problems</div>
+               {renderProblemList(unsolvedProblem, urls.problems)}
+            </div>,
+            <div className="col-sm">
+               <div className={css.heading4}>Last submissions</div>
+               {renderSubmissionList(userSubmissionList, userActs)}
+            </div>,
+         ])}
+      </div>
+   );
 };
 
 export default Profile;

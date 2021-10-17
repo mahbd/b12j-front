@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Fade, Zoom, Slide } from "react-awesome-reveal";
+import { Fade, Slide } from "react-awesome-reveal";
 import { getCurrentUser } from "../../components/authService";
 
 const Home = () => {
@@ -9,10 +9,9 @@ const Home = () => {
       <div>
          <Fade duration={1000}>
             <div style={{ color: "#d03af2" }} className={"full-height fw-bolder display-6"}>
-               <div className={"balloon full-screen position-absolute"} />
                {user && (
                   <Slide>
-                     <p className={"full-opacity ps-5 text-end"}>Hey, {user.full_name}</p>
+                     <p className={"full-opacity ps-5 text-end"}>Hey, {user.username}</p>
                   </Slide>
                )}
                <div style={{ height: "30%" }} />
@@ -26,14 +25,6 @@ const Home = () => {
                </Fade>
             </div>
          </Fade>
-         <Zoom>
-            <img
-               className={"full-height"}
-               src="https://drive.google.com/uc?export=download&id=147eDMhin5SKwxRIcwtpcWfvtBG_UdZMr"
-               alt="Coding"
-               width={"100%"}
-            />
-         </Zoom>
       </div>
    );
 };
