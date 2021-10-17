@@ -11,6 +11,7 @@ export const standardInitialState = () => {
       dict: {},
       fetched: {},
       total: null,
+      loading: false,
    };
 };
 
@@ -19,6 +20,7 @@ export const basicReducers = (name) => {
       [`${name}Added`]: (state, action) => {
          state.list.push(action.payload.id);
          state.dict[action.payload.id] = action.payload;
+         state.loading = false;
       },
 
       [`${name}Updated`]: (state, action) => {
@@ -27,6 +29,7 @@ export const basicReducers = (name) => {
             state.dict[action.payload.id] = action.payload;
             state.list.push(action.payload.id);
          }
+         state.loading = false;
       },
 
       [`${name}sReceived`]: (state, action) => {
@@ -38,18 +41,22 @@ export const basicReducers = (name) => {
                state.list.push(data[i].id);
             }
          }
+         state.loading = false;
       },
 
       [`${name}Requested`]: (state) => {
+         state.loading = true;
       },
 
       [`${name}RequestFailed`]: (state) => {
+         state.loading = false;
       },
    };
 };
 
 export const receivedWithPagination = (state, action) => {
    let page;
+   state.loading = false;
    const nextUrl = action.payload.next;
    if (!nextUrl) page = Math.ceil(action.payload.count / 20);
    else page = getPageNumberFromLink(nextUrl);
@@ -69,6 +76,7 @@ export const receivedDiscussions = (state, action, name) => {
    let pid = undefined;
    if (result) pid = action.payload.results[0][name];
 
+   state.loading = false;
    if (pid) {
       pid = parseInt(pid);
       state.fetched[pid] = Date.now();
@@ -89,6 +97,7 @@ export const updatedWithPagination = (state, action) => {
       if (!state.list[1]) state.list[1] = [];
       state.list[1] = [action.payload.id, ...state.list[1]];
    }
+   state.loading = false;
 };
 
 export class basicActions {

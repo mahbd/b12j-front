@@ -4,11 +4,15 @@ import Countdown from "react-countdown";
 import { SuperContext } from "../../context";
 import { FormattedHtml, renderColX } from "../../components/helperFunctions";
 import { UserListSingleRow } from "../user/userList";
+import { Link } from "react-router-dom";
+import { urls } from "../../configuration";
+import { getCurrentUser } from "../../components/authService";
 
 const Contest = ({ match }) => {
   const { contestId } = match.params;
   const { contestActs, userActs, problemActs } = useContext(SuperContext);
   const contest = contestActs.getById(contestId);
+  const user = getCurrentUser();
   let problems = [];
   if (contestId) {
     problems = problemActs.contestProblems(contestId) || [];
@@ -20,6 +24,13 @@ const Contest = ({ match }) => {
   return (contest &&
     <div className={"container m-2"}>
       <div>
+        {user && user.is_staff && (
+          <div>
+            <Link to={`${urls.editContest}/${contestId}`} className={"btn btn-warning"}>
+              Edit
+            </Link>
+          </div>
+        )}
         <div className={"pt-2"}>
           <div className={"row"}>
             <div className="col" />

@@ -9,7 +9,7 @@ import AddEditContest from "./addEditContest";
 const ContestRoute = () => {
   return (
     <Switch>
-      <Route path={`${urls.editContest}`} component={AddEditContest} />
+      <Route path={`${urls.editContest}/:id`} component={AddEditContest} />
       <Route path={urls.addContest} component={AddEditContest} />
       <Route path={`${urls.standing}/:contestId`} component={Standing} />
       <Route path={`${urls.contests}/:contestId`} component={Contest} />
