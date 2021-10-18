@@ -14,8 +14,8 @@ class ProblemCodeForm extends BaseForm {
   };
 
   schema = {
-    code: Joi.string().pattern(RegExp("^((?!bits/stdc).)*$")).required().messages(
-      {'string.pattern.base': 'Can not be bits/stdc++.h header is not supported'}),
+    code: Joi.string().pattern(RegExp(".*(bits/stdc)"), {invert: true}).messages(
+      {'string.pattern.invert.base': 'bits/stdc++.h header is not supported'}),
     language: Joi.required(),
     theme: Joi.required(),
     font: Joi.required()
