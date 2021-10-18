@@ -54,5 +54,7 @@
   "prettier": {
     "printWidth": 120,
     "tabWidth": 3
-  }
+  },
+  "engines" : { "node" : ">=0.16" },
+  "engineStrict" : true
 }
