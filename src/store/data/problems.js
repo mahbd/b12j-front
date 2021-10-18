@@ -7,6 +7,7 @@ import {
 } from "../basicReducerTemplate";
 import { createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from "../api";
+import { serverUrls } from "../../configuration";
 
 const name = "problem";
 
@@ -15,7 +16,7 @@ const slice = createSlice({
   initialState: {
     ...standardInitialState(),
     fetchedContests: {},
-    contestList: []
+    contestList: {},
   },
   reducers: {
     ...basicReducers(name),
@@ -27,14 +28,18 @@ const slice = createSlice({
     },
     contestProblemsReceived: (state, action) => {
       state.loading = false;
-      const contestId = parseInt(action.payload.contest_id);
+      const contestId = parseInt(action.payload.id);
       state.fetchedContests[contestId] = Date.now();
       state.contestList[contestId] = [];
       state.dict[contestId] = {};
-      const { problems } = action.payload;
-      for (let i = 0; i < problems.length; i++) {
-        state.dict[problems[i].id] = problems[i];
-        state.contestList[contestId].push(problems[i].id);
+      const { results } = action.payload;
+      if (!results) {
+        alert("Bug detected in API. Please contact admin.")
+        return;
+      }
+      for (let result of results) {
+        state.dict[result.problem.id] = { ...result.problem, sid: result.problem_char, contestId: result.contest };
+        state.contestList[contestId].push(result.problem.id);
       }
     }
   }
@@ -57,7 +62,7 @@ export class problemActions extends basicActions {
   };
 
   _loadContestProblems = (contestId) => {
-    const url = `/problems/contest_problems/?contest_id=${contestId}`;
+    const url = `${serverUrls.contests}/${contestId}/problems/`;
     if (this.store.getState()[`${this.name}s`].fetchedContests[contestId] || this.pendingContests[contestId]) return;
     this.pendingContests[contestId] = Date.now();
     this.store.dispatch(

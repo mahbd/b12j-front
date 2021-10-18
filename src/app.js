@@ -12,9 +12,9 @@ import ProblemRoute from "./apps/problem/problemRoute";
 import NavBar from "./apps/others/navBar";
 import SubmissionRoute from "./apps/submission/submissionRoute";
 import OthersRoute from "./apps/others/othersRoute";
+import LeftSideBar from "./apps/others/leftSideBar";
 import RightSideBar from "./apps/others/rightSideBar";
 import TutorialRoute from "./apps/tutorial/tutorialRoute";
-import LeftSideBar from "./apps/others/leftSideBar";
 
 const App = () => {
   const [refresh, setRefresh] = useState(false);

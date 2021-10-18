@@ -23,14 +23,14 @@ class ProblemCodeForm extends BaseForm {
 
   user = getCurrentUser();
   doSubmit = async () => {
+    const {history, contestId, problem} = this.props;
+    const {code, language} = this.state.data;
     if (!this.user) {
-      this.props.history.push(urls.login);
+      history.push(urls.login);
     }
-    const data = {
-      code: this.state.data.code,
-      language: this.state.data.language,
-      problem: this.props.problem.id
-    };
+    const data = { code, language, problem: problem.id };
+    if (contestId) data['contest'] = contestId;
+
     startLoading("Submitting Code")
     try {
       const response = await httpService.post(`${apiEndpoint}${serverUrls.submissions}/`, data);

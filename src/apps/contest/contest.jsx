@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { renderProblemList } from "../problem/problemList";
 import Countdown from "react-countdown";
 import { SuperContext } from "../../context";
 import { FormattedHtml, renderColX } from "../../components/helperFunctions";
@@ -7,6 +6,7 @@ import { UserListSingleRow } from "../user/userList";
 import { Link } from "react-router-dom";
 import { urls } from "../../configuration";
 import { getCurrentUser } from "../../components/authService";
+import { Table } from "../../components/customTags";
 
 const Contest = ({ match }) => {
   const { contestId } = match.params;
@@ -62,7 +62,7 @@ const Contest = ({ match }) => {
       {problems.length > 0 && contestStart <= Date.now() && (
         <div>
           <h2>Problems</h2>
-          {renderProblemList(problems)}
+          {renderContestProblem(problems)}
           {contestEnd <= Date.now() && <button>Tutorials</button>}
         </div>
       )}
@@ -77,3 +77,16 @@ const Contest = ({ match }) => {
   );
 };
 export default Contest;
+
+
+export function renderContestProblem(problems) {
+  const data = [];
+  for (let problem of problems) {
+    if (problem) {
+        const {title, sid, contestId} = problem;
+      data.push([<Link
+        to={`${urls.problems}/contest=${contestId}/${problem.id}`}>{title}</Link>, sid]);
+    }
+  }
+  return <Table headers={["Name", "ID"]} body={data} />;
+}

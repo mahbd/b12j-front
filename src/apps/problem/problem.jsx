@@ -9,7 +9,7 @@ import ProblemCodeForm from "../../components/forms/problemCodeForm";
 
 const Problem = ({ match, history }) => {
   const { problemActs, userActs } = useContext(SuperContext);
-  const { problemId } = match.params;
+  const { problemId, contestId } = match.params;
   const problem = problemActs.getById(problemId);
 
   const userId = getCurrentUser() && getCurrentUser().user_id;
@@ -54,7 +54,7 @@ const Problem = ({ match, history }) => {
         </div>
         <b className={"h5"}>Examples</b>
         <TestCases test_cases={problem.test_cases} />
-        <ProblemCodeForm problem={problem} history={history} />
+        <ProblemCodeForm problem={problem} history={history} contestId={contestId} />
       </div>
     )
   );
