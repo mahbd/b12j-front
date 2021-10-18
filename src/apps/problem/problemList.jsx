@@ -21,15 +21,6 @@ const ProblemList = ({ match }) => {
 
 export default ProblemList;
 
-export function convertProblemList(problems) {
-   if (!problems) return [];
-   let res = [];
-   for (let problem of problems) {
-      res.push({ value: problem.id, label: problem.title });
-   }
-   return res;
-}
-
 export function renderProblemList(problems) {
    const data = [];
    for (let problem of problems) {

@@ -41,7 +41,7 @@ const NavBar = () => {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to={urls.submissions}>
-                Submission
+                Submissions
               </NavLink>
             </li>
             <li className="nav-item">

@@ -91,12 +91,7 @@ export const receivedDiscussions = (state, action, name) => {
 };
 
 export const updatedWithPagination = (state, action) => {
-   if (state.dict[action.payload.id]) state.dict[action.payload.id] = action.payload;
-   else {
-      state.dict[action.payload.id] = action.payload;
-      if (!state.list[1]) state.list[1] = [];
-      state.list[1] = [action.payload.id, ...state.list[1]];
-   }
+   state.dict[action.payload.id] = action.payload;
    state.loading = false;
 };
 

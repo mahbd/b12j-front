@@ -11,6 +11,7 @@ import { extractDate } from "../others/functions";
 import { renderColX } from "../../components/helperFunctions";
 import { Table } from "../../components/customTags";
 import { getCurrentUser } from "../../components/authService";
+import { startLoading } from "../../components/loadingAnimation";
 
 const Profile = ({history}) => {
    const { userActs } = useContext(SuperContext);
@@ -27,11 +28,17 @@ const Profile = ({history}) => {
 
    useEffect(() => {
       const apiCall = async () => {
+         startLoading("Loading Problem set by user")
          const userProblemData = await http.get(`${apiEndpoint}/problems/?user_problems=true`);
+         startLoading("Loading Tutorial set by user")
          const userTutorialData = await http.get(`${apiEndpoint}/tutorials/?user_tutorials=true`);
+         startLoading("Loading Users submissions")
          const userSubmissionData = await http.get(`${apiEndpoint}/submissions/?user_id=${user.user_id}`);
+         startLoading("Loading Contests set by user")
          const userContestData = await http.get(`${apiEndpoint}/contests/?user_contests=true`);
+         startLoading("Loading Testable problems")
          const testProblemData = await http.get(`${apiEndpoint}/problems/?test_problems=true`);
+         startLoading("Loading Unsolved problems")
          const unsolvedProblemData = await http.get(`${apiEndpoint}/problems/?unsolved_problems=true`);
          setUnsolvedProblem(unsolvedProblemData.data.results);
          setUserTutorialList(userTutorialData.data.results);
@@ -42,6 +49,7 @@ const Profile = ({history}) => {
          console.log(unsolvedProblemData)
       };
       apiCall();
+      console.log("Reloading API")
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 

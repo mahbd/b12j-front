@@ -8,7 +8,7 @@ import AddEditTutorial from "./addEditTutorial";
 const TutorialRoute = () => {
    return (
       <Switch>
-         {/*<Route path={`${urls.tutorials}/page=:page`} component={TutorialList} />*/}
+         <Route path={`${urls.tutorials}/page=:page`} component={TutorialList} />
          <Route path={`${urls.addTutorial}`} component={AddEditTutorial} />
          <Route path={`${urls.editTutorial}/:id`} component={AddEditTutorial} />
          <Route path={`${urls.tutorials}/:tutorialId`} component={Tutorial} />
