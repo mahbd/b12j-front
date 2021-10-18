@@ -14,6 +14,7 @@ class ProblemForm extends BaseForm {
     description: Joi.string().required().min(50),
     input_terms: Joi.string().required().min(50),
     output_terms: Joi.string().required().min(50),
+    hidden_till: Joi.date(),
     correct_code: Joi.string().pattern(RegExp(".*(bits/stdc)"), {invert: true}).messages(
       {'string.pattern.invert.base': 'bits/stdc++.h header is not supported'}),
     correct_lang: Joi.required(),
@@ -60,6 +61,7 @@ class ProblemForm extends BaseForm {
         {this.renderTextEditor("description", "Description")}
         {this.renderTextEditor("input_terms", "Input Terms")}
         {this.renderTextEditor("output_terms", "Output Terms")}
+        {this.renderInput("hidden_till", "Hidden Till", "datetime-local")}
         {renderColX([
           this.renderSelect("theme", "Theme",
             [{ value: "chrome", name: "White" }, { value: "gob", name: "Dark" }]),
