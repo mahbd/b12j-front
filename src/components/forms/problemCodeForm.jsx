@@ -47,11 +47,11 @@ class ProblemCodeForm extends BaseForm {
       <form method={"post"} onSubmit={this.handleSubmit}>
         {!this.user && <div className="alert alert-danger">Please login before writing code</div>}
         {renderColX([
-          this.renderSelect("theme", "",
+          this.renderSelect("theme", "Select theme",
             [{ value: "chrome", name: "White" }, { value: "gob", name: "Dark" }]),
-          this.renderSelect("language", "",
+          this.renderSelect("language", "Select language",
             [{ value: "python", name: "Python3.9" }, { value: "c_cpp", name: "C/C++" }]),
-          this.renderSelect("font", "",
+          this.renderSelect("font", "Select font",
             [{ value: "12px", name: "12px" },
               { value: "15px", name: "15px" },
               { value: "18px", name: "18px" },
