@@ -42,7 +42,7 @@ html, body {
     left: 30vw;
     right: 30vw;
     z-index: 9999;
-    position: absolute;
+    position: fixed;
     display: none;
 }
 

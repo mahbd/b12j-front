@@ -23,14 +23,19 @@ const Contest = ({ match }) => {
 
   return (contest &&
     <div className={"container m-2"}>
+      {user && user.is_staff && (
+        <div>
+          <Link to={`${urls.editContest}/${contestId}`} className={"btn btn-warning float-end"}>
+            Edit
+          </Link>
+        </div>
+      )}
+      {problems.length > 0 && contestStart <= Date.now() && <div>
+        <Link to={`${urls.standing}/${contestId}`} className={"btn btn-warning"}>
+          Standing
+        </Link>
+      </div>}
       <div>
-        {user && user.is_staff && (
-          <div>
-            <Link to={`${urls.editContest}/${contestId}`} className={"btn btn-warning"}>
-              Edit
-            </Link>
-          </div>
-        )}
         <div className={"pt-2"}>
           <div className={"row"}>
             <div className="col" />
@@ -59,13 +64,12 @@ const Contest = ({ match }) => {
         </div>
       </div>
 
-      {problems.length > 0 && contestStart <= Date.now() && (
-        <div>
-          <h2>Problems</h2>
-          {renderContestProblem(problems)}
-          {contestEnd <= Date.now() && <button>Tutorials</button>}
-        </div>
-      )}
+      {problems.length > 0 && contestStart <= Date.now() &&
+      <div>
+        <h2>Problems</h2>
+        {renderContestProblem(problems)}
+        {contestEnd <= Date.now() && <button>Tutorials</button>}
+      </div>}
 
       {contestStart > Date.now() && (
         <div className={"pt-5 pb-5 text-center"}>
@@ -83,7 +87,7 @@ export function renderContestProblem(problems) {
   const data = [];
   for (let problem of problems) {
     if (problem) {
-        const {title, sid, contestId} = problem;
+      const { title, sid, contestId } = problem;
       data.push([<Link
         to={`${urls.problems}/contest=${contestId}/${problem.id}`}>{title}</Link>, sid]);
     }

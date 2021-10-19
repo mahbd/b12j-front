@@ -14,8 +14,8 @@ class ProblemCodeForm extends BaseForm {
   };
 
   schema = {
-    code: Joi.string().pattern(RegExp(".*(bits/stdc)"), {invert: true}).messages(
-      {'string.pattern.invert.base': 'bits/stdc++.h header is not supported'}),
+    code: Joi.string().pattern(RegExp(".*(bits/stdc)"), { invert: true }).messages(
+      { "string.pattern.invert.base": "bits/stdc++.h header is not supported" }),
     language: Joi.required(),
     theme: Joi.required(),
     font: Joi.required()
@@ -23,15 +23,15 @@ class ProblemCodeForm extends BaseForm {
 
   user = getCurrentUser();
   doSubmit = async () => {
-    const {history, contestId, problem} = this.props;
-    const {code, language} = this.state.data;
+    const { history, contestId, problem } = this.props;
+    const { code, language } = this.state.data;
     if (!this.user) {
       history.push(urls.login);
     }
     const data = { code, language, problem: problem.id };
-    if (contestId) data['contest'] = contestId;
+    if (contestId) data["contest"] = contestId;
 
-    startLoading("Submitting Code")
+    startLoading("Submitting Code");
     try {
       const response = await httpService.post(`${apiEndpoint}${serverUrls.submissions}/`, data);
       this.props.history.push(`/submissions/${response.data.id}`);
