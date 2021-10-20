@@ -71,7 +71,7 @@ const NavBar = () => {
 
             {user && (
               <li className={"nav-item"}>
-                <button onClick={logout} className={"btn btn-sm fw-bold btn-outline-danger nav-link"}>
+                <button onClick={() => logout()} className={"btn btn-sm fw-bold btn-outline-danger nav-link"}>
                   Logout
                 </button>
               </li>

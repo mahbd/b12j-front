@@ -2,10 +2,11 @@ import jwtDecode from "jwt-decode";
 import { apiEndpoint, keys, serverUrls, urls } from "../configuration";
 import httpService from "./httpService";
 
-export function logout(redirectURL = "/") {
+export function logout(redirectURL = undefined) {
   localStorage.removeItem(keys.ACCESS);
   localStorage.removeItem(keys.REFRESH);
-  window.location = redirectURL;
+  if (redirectURL) window.location = redirectURL;
+  else window.location.reload();
 }
 
 export function getJwt() {

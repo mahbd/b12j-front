@@ -39,7 +39,7 @@ const TextEditor = ({ name, label, onChange, value, error }) => {
   useEffect(() => {
     if (quill) {
       quill.on("text-change", () => {
-        onChange({ currentTarget: { value: quill.container.firstChild, name } });
+        onChange({ currentTarget: { value: quill.container.firstChild.innerHTML, name } });
       });
     }
     // eslint-disable-next-line
