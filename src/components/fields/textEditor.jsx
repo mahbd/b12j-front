@@ -31,15 +31,15 @@ const TextEditor = ({ name, label, onChange, value, error }) => {
   const { quill, quillRef } = useQuill({ modules, formats: {} });
 
   useEffect(() => {
-    if (quill && value && value !== quill.container.firstChild.innerHTML) {
-      quill.clipboard.dangerouslyPasteHTML(value);
+    if (quill && value && value !== quill.container.firstChild) {
+      quill.container.firstChild.innerHTML = value;
     }
   }, [value, quill]);
 
   useEffect(() => {
     if (quill) {
       quill.on("text-change", () => {
-        onChange({ currentTarget: { value: quill.container.firstChild.innerHTML, name } });
+        onChange({ currentTarget: { value: quill.container.firstChild, name } });
       });
     }
     // eslint-disable-next-line

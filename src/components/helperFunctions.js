@@ -56,7 +56,7 @@ const formatHtml = (text) => {
   return { __html: "<span />" };
 };
 
-export const FormattedHtml = ({ text }) => <div dangerouslySetInnerHTML={formatHtml(text)} />;
+export const FormattedHtml = ({ text }) => <div className={"ql-editor"} dangerouslySetInnerHTML={formatHtml(text)} />;
 
 export const validate = (state) => {
   const { data, schema } = state;
