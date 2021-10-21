@@ -31,8 +31,8 @@ const TextEditor = ({ name, label, onChange, value, error }) => {
   const { quill, quillRef } = useQuill({ modules, formats: {} });
 
   useEffect(() => {
-    if (quill && value && value !== quill.container.firstChild) {
-      quill.container.firstChild.innerHTML = value;
+    if (quill && value && value !== quill.container.firstChild.innerHTML) {
+      quill.clipboard.dangerouslyPasteHTML(value);
     }
   }, [value, quill]);
 

@@ -5,7 +5,7 @@ const Footer = () => {
    const d = new Date();
    return (
       <div className={"mt-5 pt-5"}>
-         <div className={"bg-dark text-white text-center fixed-bottom d-none d-lg-block"}>
+         <div className={"bg-dark text-white text-center fixed-bottom"}>
             <p>
                Developed and maintained by{" "}
                <a className={"text-white fw-bolder"} href={"https://www.linkedin.com/in/mahmudula2000/"}>
