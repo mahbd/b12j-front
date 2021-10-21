@@ -15,8 +15,7 @@ class ProblemForm extends BaseForm {
     input_terms: Joi.string().required().min(50),
     output_terms: Joi.string().required().min(50),
     hidden_till: Joi.date(),
-    correct_code: Joi.string().pattern(RegExp(".*(bits/stdc)"), {invert: true}).messages(
-      {'string.pattern.invert.base': 'bits/stdc++.h header is not supported'}),
+    correct_code: Joi.string().required(),
     correct_lang: Joi.required(),
     memory_limit: Joi.number(),
     time_limit: Joi.number(),
