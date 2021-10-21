@@ -55,6 +55,6 @@
     "printWidth": 120,
     "tabWidth": 3
   },
-  "engines" : { "node" : ">=0.16" },
+  "engines" : { "node" : "16.11.1" },
   "engineStrict" : true
 }
