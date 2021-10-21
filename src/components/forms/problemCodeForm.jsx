@@ -4,12 +4,12 @@ import Joi from "joi";
 import { renderColX } from "../helperFunctions";
 import { getCurrentUser } from "../authService";
 import { startLoading } from "../loadingAnimation";
-import { apiEndpoint, serverUrls, urls } from "../../configuration";
+import { apiEndpoint, keys, serverUrls, urls } from "../../configuration";
 import httpService from "../httpService";
 
 class ProblemCodeForm extends BaseForm {
   state = {
-    data: { language: "python", theme: "chrome", font: "15px" },
+    data: { language: localStorage.getItem("language") || "python", theme: "chrome", font: "15px" },
     errors: {}
   };
 
@@ -24,6 +24,7 @@ class ProblemCodeForm extends BaseForm {
   doSubmit = async () => {
     const { history, contestId, problem } = this.props;
     const { code, language } = this.state.data;
+    localStorage.setItem("language", language);
     if (!this.user) {
       history.push(urls.login);
     }
