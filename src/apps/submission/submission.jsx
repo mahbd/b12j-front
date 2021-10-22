@@ -58,14 +58,30 @@ const renderSubmissionDetails = (details, code) => {
         {code && <pre className={"bg-success text-white"}>{code}</pre>}
         <pre className={"h6"}>{details[1]}</pre>
       </div>;
-    } else if (details[2] === "WA" || details[2] === "AC") {
-      console.log(details[1]);
+    } else if (details[2] === "WA" || details[2] === "AC" || details[2] === "TLE") {
       return <div>
         <h1>{details[0]}</h1>
         {code && <pre className={"bg-success text-white"}>{code}</pre>}
-        <Table headers={["Input", "Your Output", "Correct Output"]}
-               body={details[1]}
-        />
+        <table className="table table-bordered table-striped">
+          <thead>
+          <tr>
+            <th>Input</th>
+            <th>Your Output</th>
+            <th>Correct Output</th>
+          </tr>
+          </thead>
+          <tbody>
+          {details[1].map((row) => (
+            <tr key={Math.floor(Math.random() * 1000000) + Math.floor(Math.random() * 1000000)}>
+              {row.map((cell) => (
+                <td key={Math.floor(Math.random() * 1000000) + Math.floor(Math.random() * 1000000)}>
+                  <pre>{cell}</pre>
+                </td>
+              ))}
+            </tr>
+          ))}
+          </tbody>
+        </table>
       </div>;
     }
   }
