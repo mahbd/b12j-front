@@ -12,7 +12,7 @@ const NavBar = () => {
     <nav className={css.navbar} id={"navBar1"}>
       <div className={"container-fluid"}>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler btn-outline-dark"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
