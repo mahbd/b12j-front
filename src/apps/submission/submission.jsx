@@ -26,7 +26,9 @@ const Submission = ({ match }) => {
         body={[
           [
             submissionId,
-            <Link to={`${urls.problems}/${submission.problem}`}>
+            (submission.contest && <Link to={`${urls.problems}/contest=${submission.contest}/${submission.problem}`}>
+              {problemActs.getById(submission.problem, "title")}
+            </Link>) || <Link to={`${urls.problems}/${submission.problem}`}>
               {problemActs.getById(submission.problem, "title")}
             </Link>,
             userActs.fullName(submission.user),
