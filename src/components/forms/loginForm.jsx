@@ -1,7 +1,7 @@
 import React from "react";
 import BaseForm from "./baseForms";
 import Joi from "joi";
-import { apiEndpoint, serverUrls, urls } from "../../configuration";
+import { apiEndpoint, endpoint, serverUrls, urls } from "../../configuration";
 import httpService from "../httpService";
 import { setJwt, setRefreshToken } from "../authService";
 import { startLoading} from "../loadingAnimation";
@@ -50,7 +50,7 @@ class LoginForm extends BaseForm {
           {this.renderInput("password", "Password", "password")}
           {this.renderSubmitButton("Login", "btn btn-success form-btn")}
           <p>New user <Link to={urls.register} className="text-success">register</Link></p>
-          <Link to={urls.resetPassword} className="text-danger">Forgot password?</Link>
+          <a href={`${endpoint}/accounts/password_reset/`} className="text-danger">Forgot password?</a>
         </form>
       </div>
     );

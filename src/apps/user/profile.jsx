@@ -29,17 +29,17 @@ const Profile = ({history}) => {
    useEffect(() => {
       const apiCall = async () => {
          startLoading("Loading Problem set by user")
-         const userProblemData = await http.get(`${apiEndpoint}/problems/?user_problems=true`);
+         const userProblemData = await http.get(`${apiEndpoint}/problems/?user_problems=true&limit=10`);
          startLoading("Loading Tutorial set by user")
-         const userTutorialData = await http.get(`${apiEndpoint}/tutorials/?user_tutorials=true`);
+         const userTutorialData = await http.get(`${apiEndpoint}/tutorials/?user_tutorials=true&limit=10`);
          startLoading("Loading Users submissions")
-         const userSubmissionData = await http.get(`${apiEndpoint}/submissions/?user_id=${user.user_id}`);
+         const userSubmissionData = await http.get(`${apiEndpoint}/submissions/?user_id=${user.user_id}&limit=10`);
          startLoading("Loading Contests set by user")
-         const userContestData = await http.get(`${apiEndpoint}/contests/?user_contests=true`);
+         const userContestData = await http.get(`${apiEndpoint}/contests/?user_contests=true&limit=10`);
          startLoading("Loading Testable problems")
-         const testProblemData = await http.get(`${apiEndpoint}/problems/?test_problems=true`);
+         const testProblemData = await http.get(`${apiEndpoint}/problems/?test_problems=true&limit=10`);
          startLoading("Loading Unsolved problems")
-         const unsolvedProblemData = await http.get(`${apiEndpoint}/problems/?unsolved_problems=true`);
+         const unsolvedProblemData = await http.get(`${apiEndpoint}/problems/?unsolved_problems=true&limit=10`);
          setUnsolvedProblem(unsolvedProblemData.data.results);
          setUserTutorialList(userTutorialData.data.results);
          setUserProbList(userProblemData.data.results);

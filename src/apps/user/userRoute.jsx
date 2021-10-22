@@ -9,6 +9,7 @@ import RegistrationSuccessful from "./registrationSuccessful";
 import ResendActivation from "./resendActivation";
 import ResetPassword from "./resetPassword";
 import EmailConfirmed from "./emailConfirmed";
+import ResetPasswordGivePass from "./resetPasswordGivePass";
 
 const UserRoute = () => {
    return (
@@ -20,6 +21,7 @@ const UserRoute = () => {
          <Route path={`${urls.confirmEmail}/:uid/:token`} component={EmailConfirmed} />
          <Route path={urls.resendActivationEmail} component={ResendActivation} />
          <Route path={urls.resetPassword} component={ResetPassword} />
+         <Route path={`${ urls.resetPasswordConfirm }/:uid/:token`} component={ResetPasswordGivePass} />
          <Route path={urls.userList} component={UserList} />
       </Switch>
    );
