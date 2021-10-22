@@ -55,6 +55,16 @@ const subUrls = {
   userList: `${mainUrls.users}/users`,
 };
 
+const profileNav = {
+  mainProfile: `${subUrls.profile}/mainProfile`,
+  unsolvedProblems: `${subUrls.profile}/unsolvedProblems`,
+  profileTutorials: `${subUrls.profile}/tutorials`,
+  profileProblems: `${subUrls.profile}/problems`,
+  profileSubmissions: `${subUrls.profile}/submissions`,
+  profileContests: `${subUrls.profile}/contests`,
+  testProblems: `${subUrls.profile}/testProblems`,
+}
+
 export const urls = {
   cf: "/cf",
   cfProblems: "cf/problems",
@@ -62,6 +72,7 @@ export const urls = {
   standing: "/contests/standing",
   ...mainUrls,
   ...subUrls,
+  ...profileNav,
 };
 
 export const serverUrls = {
