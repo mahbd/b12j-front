@@ -21,7 +21,6 @@ const Profile = ({ history }) => {
       element.style.display = "none";
     }
   };
-
   return (
     <div>
       <Slide>
