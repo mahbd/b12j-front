@@ -23,7 +23,7 @@ const NavBar = () => {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav d-inline-flex">
             <li className="nav-item">
               <NavLink className="nav-link" to={urls.home}>
                 Home
@@ -71,7 +71,7 @@ const NavBar = () => {
 
             {user && (
               <li className={"nav-item"}>
-                <button onClick={() => logout()} className={"btn btn-sm fw-bold btn-outline-danger nav-link"}>
+                <button onClick={() => logout()} className={"btn btn-sm fw-bold btn-outline-danger nav-link border-0"}>
                   Logout
                 </button>
               </li>
