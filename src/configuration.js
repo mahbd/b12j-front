@@ -44,6 +44,7 @@ const subUrls = {
   emailSent: `${mainUrls.others}/email-sent`,
   login: `${mainUrls.users}/login`,
   logout: `${mainUrls.users}/logout`,
+  privacyPolicy: `${mainUrls.others}/privacy-policy`,
   profile: `${mainUrls.users}/profile`,
   register: `${mainUrls.users}/register`,
   registerSuccess: `${mainUrls.users}/register-success`,
