@@ -1,7 +1,7 @@
 const getEndpoint = () => {
   if (process.env.BACK_END) {
-    return `https://${process.env.BACK_END}`
-  } else if (document.domain === "localhost") return "http://127.0.0.1:8000";
+    return `https://${process.env.BACK_END}`;
+  } else if (document.domain === "localhost" || document.domain === "127.0.0.1") return "http://127.0.0.1:8000";
   else if (document.domain === "b12j.herokuapp.com" || document.domain === "b12j-api.herokuapp.com") {
     return `${document.location.protocol}//b12j-api.herokuapp.com`;
   } else return "https://api.b12j.ga";
@@ -13,8 +13,8 @@ export const apiEndpoint = endpoint + "/api";
 export const wssURL = () => {
   const protocol = document.location.protocol === "https:" ? "wss://" : "ws://";
   if (process.env.BACK_END) {
-    return `wss://${process.env.BACK_END}`
-  } else if (document.domain === "localhost") return protocol + "127.0.0.1:8000/ws";
+    return `wss://${process.env.BACK_END}`;
+  } else if (document.domain === "localhost" || document.domain === "127.0.0.1") return protocol + "127.0.0.1:8000/ws";
   else if (document.domain === "b12j.herokuapp.com" || document.domain === "b12j-api.herokuapp.com") {
     return `${protocol}b12j-api.herokuapp.com/ws`;
   }
@@ -30,7 +30,7 @@ const mainUrls = {
   restricted: "/restricted",
   submissions: "/submissions",
   tutorials: "/tutorials",
-  users: "/users",
+  users: "/users"
 };
 
 const subUrls = {
@@ -49,10 +49,21 @@ const subUrls = {
   registerSuccess: `${mainUrls.users}/register-success`,
   resetPassword: `${mainUrls.users}/reset-password`,
   resetPasswordConfirm: `${mainUrls.users}/passwordResetConfirm`,
+  confirmGoogleAuth: `${mainUrls.users}/confirmGoogleAuth`,
   resendActivationEmail: `${mainUrls.users}/resend-email`,
   testCases: `${mainUrls.problems}/test_cases`,
   addTestCases: `${mainUrls.problems}/test_cases/add`,
-  userList: `${mainUrls.users}/users`,
+  userList: `${mainUrls.users}/users`
+};
+
+const profileNav = {
+  mainProfile: `${subUrls.profile}/mainProfile`,
+  unsolvedProblems: `${subUrls.profile}/unsolvedProblems`,
+  profileTutorials: `${subUrls.profile}/tutorials`,
+  profileProblems: `${subUrls.profile}/problems`,
+  profileSubmissions: `${subUrls.profile}/submissions`,
+  profileContests: `${subUrls.profile}/contests`,
+  testProblems: `${subUrls.profile}/testProblems`
 };
 
 export const urls = {
@@ -62,14 +73,20 @@ export const urls = {
   standing: "/contests/standing",
   ...mainUrls,
   ...subUrls,
+  ...profileNav
 };
 
 export const serverUrls = {
   login: "/auth/jwt/create",
+  googleAuthURL: "/auth/o/google-oauth2",
+  googleAuthConfirmURL: "/auth/o/google-oauth2",
   refreshToken: "/auth/jwt/refresh",
   register: "/auth/users",
+  updateUser: "/auth/users/me",
   resendActivationEmail: "/auth/users/resend_activation",
   resetPassword: "/auth/users/reset_password",
+  changeUsername: "/auth/users/set_username",
+  changePassword: "/auth/users/set_password",
   confirmEmail: "/auth/users/activation",
   resetPasswordConfirm: "/auth/users/reset_password_confirm",
   userList: "/users",
