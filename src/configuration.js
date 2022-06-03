@@ -79,6 +79,7 @@ export const urls = {
 
 export const serverUrls = {
   login: "/auth/jwt/create",
+  loginWithGoogle: "/auth/google/token",
   googleAuthURL: "/auth/o/google-oauth2",
   googleAuthConfirmURL: "/auth/o/google-oauth2",
   refreshToken: "/auth/jwt/refresh",
