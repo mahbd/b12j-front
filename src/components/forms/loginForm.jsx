@@ -68,7 +68,7 @@ export default LoginForm;
 
 const LoginWithGoogleButton = () => {
     return (
-        <button className="btn btn-info form-btn" onClick={signInWithGoogle}>
+        <button type="button" className="btn btn-info form-btn" onClick={signInWithGoogle}>
             <img style={{height: "90%"}} src="https://img.icons8.com/color/16/000000/google-logo.png"
                  alt="google"/> Login with Google
         </button>
