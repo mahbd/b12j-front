@@ -14,13 +14,12 @@ import {apiEndpoint, serverUrls, urls} from "../../configuration";
 import {setJwt, setRefreshToken} from "../../components/authService";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDENzSzanmiPxPexRgJllDRgvARkAS4Owk",
-    authDomain: "b12j-329202.firebaseapp.com",
-    projectId: "b12j-329202",
-    storageBucket: "b12j-329202.appspot.com",
-    messagingSenderId: "44233356796",
-    appId: "1:44233356796:web:ff616e4b70fe3cb8882e79",
-    measurementId: "G-2JL8QR3HNM"
+    apiKey: "AIzaSyDZVuWrICZEbDPOranIvUSN5iAWNNZm-XA",
+    authDomain: "b12j-35db3.firebaseapp.com",
+    projectId: "b12j-35db3",
+    storageBucket: "b12j-35db3.appspot.com",
+    messagingSenderId: "614885379767",
+    appId: "1:614885379767:web:f23b0c78e37d19e86b0732"
 };
 
 const app = initializeApp(firebaseConfig);
